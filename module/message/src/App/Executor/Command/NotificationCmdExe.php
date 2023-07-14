@@ -92,6 +92,10 @@ class NotificationCmdExe extends AbstractExecutor
             $msg->setServer($tpl->getServer());
             $msgList->push($msg);
         }
+
+        if ($msgList->isEmpty()) {
+            $result->setResult(false)->setMsg('无已启用的模板消息');
+        }
         $this->messageRepo->insert($msgList->toArray());
         $this->messageDomainService->sendList($msgList);
         return $result->setResult(true);
