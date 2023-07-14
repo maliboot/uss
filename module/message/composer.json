@@ -1,0 +1,40 @@
+{
+  "name": "uss/message",
+  "description": "A plugin library for Maliboot.",
+  "license": "MIT",
+  "keywords": [
+    "php",
+    "swoole",
+    "hyperf",
+    "maliboot"
+  ],
+  "support": {
+  },
+  "require": {
+    "php": ">=8.0",
+    "maliboot/blade-markdown": "*",
+    "hyperf/async-queue": "~3.0.0",
+    "hyperf/guzzle": "~3.0.0",
+    "symfony/mailer": "^6.3",
+    "overtrue/easy-sms": "^2.4"
+  },
+  "autoload": {
+    "psr-4": {
+      "Uss\\Message\\": "src/"
+    },
+    "files": [
+    ]
+  },
+  "autoload-dev": {
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "config": {
+    "sort-packages": true
+  },
+  "extra": {
+    "hyperf": {
+      "config": "Uss\\Message\\Plugin"
+    }
+  }
+}
