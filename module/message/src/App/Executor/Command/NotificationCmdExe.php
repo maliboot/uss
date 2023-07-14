@@ -9,6 +9,7 @@ declare(strict_types=1);
  */
 namespace Uss\Message\App\Executor\Command;
 
+use Exception;
 use Hyperf\Collection\Collection;
 use Hyperf\View\RenderInterface;
 use MaliBoot\Cola\Annotation\AppService;
@@ -69,7 +70,13 @@ class NotificationCmdExe extends AbstractExecutor
             $msg->setTplGroupId($tplGroup->getId());
             $msg->setType($tpl->getType());
             $msg->setTitle($tpl->getTitle());
-            $msg->setContent($this->viewRender->getContents($tpl->getBladeTemplate(), $notificationCmd->parseVarsToArray()));
+            try {
+                $renderContent = $this->viewRender->getContents($tpl->getBladeTemplate(), $notificationCmd->parseVarsToArray());
+            } catch (Exception $e) {
+                $result->setMsg(sprintf('模板[id=%s]渲染失败，取消本模板消息发送，错误信息:%s', $tpl->getId(), $e->getMessage()));
+                continue;
+            }
+            $msg->setContent($renderContent);
             $msg->setAppLink($tpl->getAppLinkUrl());
             $msg->setMailFiles($notificationCmd->getMailFilesByJson());
             $form = $notificationCmd->getFrom() ? $notificationCmd->getFrom() : $tpl->getMessageForm();

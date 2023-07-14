@@ -35,7 +35,6 @@ abstract class AbstractMessageSender extends Job
         $result = false;
         $resultMsg = '发送成功';
         try {
-            $this->execute();
             $result = $this->execute();
         } catch (Exception $e) {
             $resultMsg = $e->getMessage();
