@@ -23,8 +23,8 @@ class AliSmsSender extends AbstractMessageSender
 
     public function execute(): bool
     {
-        $aliKey = $this->msgParams['server']['aliKey'] ?? '';
-        $aliSecret = $this->msgParams['server']['aliSecret'] ?? '';
+        $appKey = $this->msgParams['server']['appKey'] ?? '';
+        $appSecret = $this->msgParams['server']['appSecret'] ?? '';
         $smsSign = $this->msgParams['smsSign'] ?? '';
         $smsTemplateCode = $this->msgParams['smsTemplateCode'] ?? '';
         $config = [
@@ -45,8 +45,8 @@ class AliSmsSender extends AbstractMessageSender
                     'file' => '/tmp/easy-sms.log',
                 ],
                 'aliyun' => [
-                    'access_key_id' => $aliKey,
-                    'access_key_secret' => $aliSecret,
+                    'access_key_id' => $appKey,
+                    'access_key_secret' => $appSecret,
                     'sign_name' => $smsSign,
                 ],
             ],

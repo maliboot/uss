@@ -16,7 +16,7 @@ use Hyperf\Di\Annotation\AbstractAnnotation;
 class MessageSender extends AbstractAnnotation
 {
     /**
-     * @param int $messageType 消息发送者类型，参考 \Uss\Message\Domain\Model\Message\Message::$type
+     * @param int $messageType 消息发送者类型，参考 <a href='psi_element://\Uss\Message\Domain\Model\Message\Message::$type'>Message::$type</a>
      */
     public function __construct(
         public int $messageType = 0,

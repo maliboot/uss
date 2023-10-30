@@ -19,8 +19,8 @@ use Uss\Message\Client\Dto\Command\MessageSentCmd;
 abstract class AbstractMessageSender extends Job
 {
     /**
-     * @param string $msgUniqid 消息标识，可参考\Uss\Message\Domain\Model\Message\Message::uniqid
-     * @param array $msgParams 消息参数，可参考\Uss\Message\Domain\Model\Message\Message::class
+     * @param string $msgUniqid 消息标识，可参考<a href='psi_element://\Uss\Message\Domain\Model\Message\Message::$uniqid'>Message::$uniqid</a>
+     * @param array $msgParams 消息参数，可参考<a href='psi_element://\Uss\Message\Domain\Model\Message\Message'>Message</a>
      */
     public function __construct(
         private string $msgUniqid,

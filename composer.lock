@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "36b805bcf0bfb56016d1feeac60c5f62",
+    "content-hash": "23e4e0f1f08d7288240855783599607f",
     "packages": [
         {
             "name": "96qbhy/simple-jwt",
@@ -4179,6 +4179,53 @@
                 "source": "https://github.com/laravel/framework"
             },
             "time": "2023-07-11T13:14:28+00:00"
+        },
+        {
+            "name": "jpush/jpush",
+            "version": "v3.6.8",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jpush/jpush-api-php-client.git",
+                "reference": "ebb191e8854a35c3fb7a6626028b3a23132cbe2c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jpush/jpush-api-php-client/zipball/ebb191e8854a35c3fb7a6626028b3a23132cbe2c",
+                "reference": "ebb191e8854a35c3fb7a6626028b3a23132cbe2c",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "php": ">=5.3.3"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "JPush\\": "src/JPush/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "JPush",
+                    "email": "support@jpush.cn",
+                    "homepage": "https://www.jpush.cn/",
+                    "role": "Developer"
+                }
+            ],
+            "description": "JPush API PHP Client",
+            "homepage": "https://github.com/jpush/jpush-api-php-client",
+            "support": {
+                "issues": "https://github.com/jpush/jpush-api-php-client/issues",
+                "source": "https://github.com/jpush/jpush-api-php-client/tree/v3.6.8"
+            },
+            "time": "2021-08-12T07:43:39+00:00"
         },
         {
             "name": "laminas/laminas-mime",
@@ -8516,7 +8563,7 @@
         },
         {
             "name": "uss/message",
-            "version": "dev-main",
+            "version": "dev-feature/jpush",
             "dist": {
                 "type": "path",
                 "url": "./module/message",
@@ -9270,6 +9317,62 @@
                 "source": "https://github.com/hyperf/testing/tree/v3.0.23"
             },
             "time": "2023-06-01T08:26:57+00:00"
+        },
+        {
+            "name": "maliboot/devtool",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/maliboot/devtool.git",
+                "reference": "c23505d1dfa9edb3dd9c300745e75802de775917"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/maliboot/devtool/zipball/c23505d1dfa9edb3dd9c300745e75802de775917",
+                "reference": "c23505d1dfa9edb3dd9c300745e75802de775917",
+                "shasum": ""
+            },
+            "require": {
+                "hyperf/code-parser": "~3.0.0",
+                "hyperf/command": "~3.0.0",
+                "hyperf/contract": "~3.0.0",
+                "hyperf/di": "~3.0.0",
+                "hyperf/support": "~3.0.0",
+                "hyperf/utils": "~3.0.0",
+                "php": ">=8.0"
+            },
+            "default-branch": true,
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.0-dev"
+                },
+                "hyperf": {
+                    "config": "MaliBoot\\Devtool\\ConfigProvider"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "MaliBoot\\Devtool\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "A Devtool for Maliboot.",
+            "keywords": [
+                "Maliboot",
+                "devtool",
+                "hyperf",
+                "php",
+                "swoole"
+            ],
+            "support": {
+                "issues": "https://github.com/maliboot/devtool/issues",
+                "source": "https://github.com/maliboot/devtool/tree/master"
+            },
+            "time": "2023-09-07T11:58:20+00:00"
         },
         {
             "name": "mockery/mockery",

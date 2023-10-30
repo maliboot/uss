@@ -17,10 +17,10 @@ use MaliBoot\Cola\Domain\AggregateRootInterface;
 /**
  * 消息模板-服务配置，如机器人、邮件发件人等….
  *
- * @method string getAliSecret() 获取阿里云keySecret.
- * @method self setAliSecret(string $aliSecret) 设置阿里云keySecret.
- * @method string getAliKey() 获取阿里云keyId.
- * @method self setAliKey(string $aliKey) 设置阿里云keyId.
+ * @method string getAppSecret() 获取通用keySecret.
+ * @method self setAppSecret(string $appSecret) 设置通用keySecret.
+ * @method string getAliKey() 获取通用keyId.
+ * @method self setAliKey(string $appKey) 设置通用keyId.
  * @method int getId() ...
  * @method self setId(int $id) ...
  * @method string getUniqid() 获取唯一识别符（不可重复）.
@@ -84,11 +84,11 @@ class MessageTplServer extends AbstractEntity implements AggregateRootInterface
     #[Field(name: '邮件地址')]
     private string $mailAddress;
 
-    #[Field(name: '阿里云keyId')]
-    private string $aliKey;
+    #[Field(name: '通用keyId')]
+    private string $appKey;
 
-    #[Field(name: '阿里云keySecret')]
-    private string $aliSecret;
+    #[Field(name: '通用keySecret')]
+    private string $appSecret;
 
     #[Field(name: '创建人id ')]
     private int $createdId;

@@ -17,10 +17,10 @@ use MaliBoot\Cola\Infra\AbstractDatabaseDO;
 /**
  * 消息模板-服务配置，如机器人、邮件发件人等….
  *
- * @method string getAliSecret() 获取阿里云keySecret.
- * @method self setAliSecret(string $aliSecret) 设置阿里云keySecret.
- * @method string getAliKey() 获取阿里云keyId.
- * @method self setAliKey(string $aliKey) 设置阿里云keyId.
+ * @method string getAppSecret() 获取通用keySecret.
+ * @method self setAppSecret(string $appSecret) 设置通用keySecret.
+ * @method string getAliKey() 获取通用keyId.
+ * @method self setAliKey(string $appKey) 设置通用keyId.
  * @method int getId() ...
  * @method self setId(int $id) ...
  * @method string getUniqid() 获取唯一识别符（不可重复）.
@@ -86,11 +86,11 @@ class MessageTplServerDO extends AbstractDatabaseDO
     #[Column(name: 'mail_address', desc: '邮件地址', type: 'string')]
     private string $mailAddress;
 
-    #[Column(name: 'ali_key', desc: '阿里云keyId', type: 'string')]
-    private string $aliKey;
+    #[Column(name: 'app_key', desc: '通用keyId', type: 'string')]
+    private string $appKey;
 
-    #[Column(name: 'ali_secret', desc: '阿里云keySecret', type: 'string')]
-    private string $aliSecret;
+    #[Column(name: 'app_secret', desc: '通用keySecret', type: 'string')]
+    private string $appSecret;
 
     #[Column(name: 'created_id', desc: '创建人id ', type: 'int')]
     private int $createdId;
