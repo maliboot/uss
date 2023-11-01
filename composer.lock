@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "23e4e0f1f08d7288240855783599607f",
+    "content-hash": "22b069d6caa909c824f94d2534993a78",
     "packages": [
         {
             "name": "96qbhy/simple-jwt",
@@ -6083,16 +6083,16 @@
         },
         {
             "name": "overtrue/easy-sms",
-            "version": "2.4.2",
+            "version": "2.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/overtrue/easy-sms.git",
-                "reference": "78b9bdaabe08f444589877a47d10595805dba42b"
+                "reference": "81d4deec69bbb6de6e5fdd7ab90cc933bd3e3046"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/overtrue/easy-sms/zipball/78b9bdaabe08f444589877a47d10595805dba42b",
-                "reference": "78b9bdaabe08f444589877a47d10595805dba42b",
+                "url": "https://api.github.com/repos/overtrue/easy-sms/zipball/81d4deec69bbb6de6e5fdd7ab90cc933bd3e3046",
+                "reference": "81d4deec69bbb6de6e5fdd7ab90cc933bd3e3046",
                 "shasum": ""
             },
             "require": {
@@ -6137,7 +6137,7 @@
             "description": "The easiest way to send short message.",
             "support": {
                 "issues": "https://github.com/overtrue/easy-sms/issues",
-                "source": "https://github.com/overtrue/easy-sms/tree/2.4.2"
+                "source": "https://github.com/overtrue/easy-sms/tree/2.5.0"
             },
             "funding": [
                 {
@@ -6145,7 +6145,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-04-14T08:54:03+00:00"
+            "time": "2023-08-07T07:51:17+00:00"
         },
         {
             "name": "php-di/phpdoc-reader",
@@ -11710,7 +11710,9 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {
+        "maliboot/devtool": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {

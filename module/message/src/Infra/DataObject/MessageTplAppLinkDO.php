@@ -25,8 +25,8 @@ use MaliBoot\Cola\Infra\AbstractDatabaseDO;
  * @method self setName(string $name) 设置名称.
  * @method string getDescription() 获取描述.
  * @method self setDescription(string $description) 设置描述.
- * @method string getLink() 获取链接.
- * @method self setLink(string $link) 设置链接.
+ * @method string getUri() 获取链接.
+ * @method self setUri(string $uri) 设置链接.
  * @method int getStatus() 获取状态 0不启用 1启用.
  * @method self setStatus(int $status) 设置状态 0不启用 1启用.
  * @method int getCreatedId() 获取创建人id .
@@ -61,8 +61,14 @@ class MessageTplAppLinkDO extends AbstractDatabaseDO
     #[Column(name: 'description', desc: '描述', type: 'string')]
     private string $description;
 
-    #[Column(name: 'link', desc: '链接', type: 'string')]
-    private string $link;
+    #[Column(name: 'uri', desc: '链接', type: 'string')]
+    private string $uri;
+
+    #[Column(name: 'android_uri_activity', desc: 'Android专用跳转参数，如极光推送时为uri_activity=xxxx', type: 'string')]
+    private string $androidUriActivity;
+
+    #[Column(name: 'sound', desc: '铃声', type: 'string')]
+    private string $sound;
 
     #[Column(name: 'status', desc: '状态 0不启用 1启用', type: 'int')]
     private int $status;

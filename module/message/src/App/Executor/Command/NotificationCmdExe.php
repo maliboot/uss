@@ -73,11 +73,15 @@ class NotificationCmdExe extends AbstractExecutor
             try {
                 $renderContent = $this->viewRender->getContents($tpl->getBladeTemplate(), $notificationCmd->parseVarsToArray());
             } catch (Exception $e) {
-                $result->setMsg(sprintf('模板[id=%s]渲染失败，取消本模板消息发送，错误信息:%s', $tpl->getId(), $e->getMessage()));
-                continue;
+                return $result->setMsg(sprintf(
+                    'Blade模板[id=%s]渲染失败，取消本模板消息发送，请自查。模板内容:[%s],错误信息:[%s]',
+                    $tpl->getId(),
+                    $tpl->getContent(),
+                    $e->getMessage()
+                ));
             }
             $msg->setContent($renderContent);
-            $msg->setAppLink($tpl->getAppLinkUrl());
+            $msg->setAppLink($tpl->getAppLink());
             $msg->setMailFiles($notificationCmd->getMailFilesByJson());
             $form = $notificationCmd->getFrom() ? $notificationCmd->getFrom() : $tpl->getMessageForm();
             $msg->setFrom($form);

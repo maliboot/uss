@@ -30,8 +30,6 @@ use MaliBoot\Dto\Annotation\Field;
  * @method self setContent(string $content) 设置内容.
  * @method int getContentType() 获取内容类型 0text 1html 2markdown.
  * @method self setContentType(int $contentType) 设置内容类型 0text 1html 2markdown.
- * @method string getAppLink() 获取App推送-跳转页面链接.
- * @method self setAppLink(string $appLink) 设置App推送-跳转页面链接.
  * @method string getMailFiles() 获取邮件附件.
  * @method self setMailFiles(string $mailFiles) 设置邮件附件.
  * @method string getFrom() 获取发送人标识，如邮箱，手机号，机器人唯一标识.
@@ -100,9 +98,6 @@ class MessageUpdateCmd extends AbstractCommand
 
     #[Field(name: '内容类型 0text 1html 2markdown', type: 'int')]
     private int $contentType;
-
-    #[Field(name: 'App推送-跳转页面链接', type: 'string')]
-    private string $appLink;
 
     #[Field(name: '邮件附件', type: 'string')]
     private string $mailFiles;

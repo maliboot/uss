@@ -24,8 +24,8 @@ use MaliBoot\Dto\Annotation\ViewObject;
  * @method self setName(string $name) 设置名称.
  * @method string getDescription() 获取描述.
  * @method self setDescription(string $description) 设置描述.
- * @method string getLink() 获取链接.
- * @method self setLink(string $link) 设置链接.
+ * @method string getUri() 获取链接.
+ * @method self setUri(string $uri) 设置链接.
  * @method int getStatus() 获取状态 0不启用 1启用.
  * @method self setStatus(int $status) 设置状态 0不启用 1启用.
  * @method int getCreatedId() 获取创建人id .
@@ -59,7 +59,7 @@ class MessageTplAppLinkVO extends AbstractViewObject
     private string $description;
 
     #[Field(name: '链接', type: 'string')]
-    private string $link;
+    private string $uri;
 
     #[Field(name: '状态 0不启用 1启用', type: 'int')]
     private int $status;

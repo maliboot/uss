@@ -56,6 +56,12 @@ class MessageTplAppLinkCreateCmd extends AbstractCommand
     #[Field(name: '链接', type: 'string')]
     private string $link;
 
+    #[Field(name: 'Andorid专用跳转参数，如极光推送时为uri_activity=xxxx', type: 'string')]
+    private string $androidUriActivity;
+
+    #[Field(name: '铃声', type: 'string')]
+    private string $sound;
+
     #[Field(name: '状态 0不启用 1启用', type: 'int')]
     private int $status;
 
