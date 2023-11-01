@@ -87,7 +87,9 @@ class NotificationCmdExe extends AbstractExecutor
             $msg->setFrom($form);
             $formName = $notificationCmd->getFromName() ? $notificationCmd->getFromName() : $tpl->getServer()->getName();
             $msg->setFromName($formName);
-            $msg->setTo($tpl->getToListJson());
+
+            $msg->setTo(json_encode([...$tpl->getToList(), ...$notificationCmd->getToList($tpl->getType())]));
+
             $msg->setPostPlanTime($notificationCmd->getDefaultPostPlanTime());
             $msg->setRequestId($notificationCmd->getRequestId());
             $msg->setRequestSource($notificationCmd->getRequestSource());

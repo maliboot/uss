@@ -225,18 +225,12 @@ class MessageTpl extends AbstractEntity implements AggregateRootInterface
 
     public function getToList(): array
     {
-        switch ($this->type) {
-            case 0:
-                return $this->getMailsArray();
-            case 1:
-            case 2:
-            case 8:
-                return $this->getPhonesArray();
-            case 4:
-                return [$this->getTopic()];
-            default:
-                return [];
-        }
+        return match ($this->type) {
+            0 => $this->getMailsArray(),
+            1, 2, 8 => $this->getPhonesArray(),
+            4 => [$this->getTopic()],
+            default => [],
+        };
     }
 
     public function getToListJson(): string

@@ -69,6 +69,18 @@ class NotificationCmd extends AbstractCommand
     #[Field(name: '发送人名称', type: 'string')]
     private string $fromName = '';
 
+    #[Field(name: 'app推送-接收人手机号。一般情况为1个。群发时为多个。JSON串，选填', type: 'string')]
+    private string $appPushTo = '';
+
+    #[Field(name: '短信-接收人手机号。一般情况为1个。群发时为多个。JSON串，选填', type: 'string')]
+    private string $smsTo = '';
+
+    #[Field(name: '邮箱-接收人手机号。一般情况为1个。群发时为多个。JSON串，选填', type: 'string')]
+    private string $mailTo = '';
+
+    #[Field(name: 'Topic-（消息发布）话题名。一般情况为1个。群发时为多个。JSON串，选填', type: 'string')]
+    private string $websocketTo = '';
+
     #[Field(name: '计划发送时间', type: 'string')]
     private string $postPlanTime = '';
 
@@ -138,12 +150,28 @@ class NotificationCmd extends AbstractCommand
         return $this->getDefaultJson($this->getMailFiles());
     }
 
-    protected function getDefaultJson(string $str): string
+    public function getArrayByJson(string $str, array $default = []): array
     {
         $result = json_decode($str, true);
         if (json_last_error() !== JSON_ERROR_NONE) {
-            $result = [];
+            $result = $default;
         }
-        return json_encode($result);
+        return $result;
+    }
+
+    public function getToList(int $type): array
+    {
+        return match ($type) {
+            0 => $this->getArrayByJson($this->getMailTo()),
+            1 => $this->getArrayByJson($this->getSmsTo()),
+            2 => $this->getArrayByJson($this->getAppPushTo()),
+            4 => $this->getArrayByJson($this->getWebsocketTo()),
+            default => [],
+        };
+    }
+
+    protected function getDefaultJson(string $str): string
+    {
+        return json_encode($this->getArrayByJson($str));
     }
 }
