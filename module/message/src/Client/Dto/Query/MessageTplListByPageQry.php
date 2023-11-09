@@ -7,15 +7,13 @@ declare(strict_types=1);
  * @link     https://github.com/maliboot
  * @document https://github.com/maliboot
  */
+
 namespace Uss\Message\Client\Dto\Query;
 
-use MaliBoot\Dto\AbstractPageQuery;
 use MaliBoot\Dto\Annotation\DataTransferObject;
 
 /**
  * MessageTplListByPageQry.
  */
 #[DataTransferObject(name: 'MessageTpl', type: 'query')]
-class MessageTplListByPageQry extends AbstractPageQuery
-{
-}
+class MessageTplListByPageQry {}

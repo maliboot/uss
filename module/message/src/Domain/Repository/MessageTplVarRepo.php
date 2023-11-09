@@ -7,6 +7,7 @@ declare(strict_types=1);
  * @link     https://github.com/maliboot
  * @document https://github.com/maliboot
  */
+
 namespace Uss\Message\Domain\Repository;
 
 use MaliBoot\Cola\Domain\CommandRepositoryInterface;
@@ -14,6 +15,4 @@ use MaliBoot\Cola\Domain\CommandRepositoryInterface;
 /**
  * MessageTplVarRepo.
  */
-interface MessageTplVarRepo extends CommandRepositoryInterface
-{
-}
+interface MessageTplVarRepo extends CommandRepositoryInterface {}

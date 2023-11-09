@@ -7,10 +7,10 @@ declare(strict_types=1);
  * @link     https://github.com/maliboot
  * @document https://github.com/maliboot
  */
+
 namespace MalibootTest\Cases;
 
 use Exception;
-use Hyperf\Di\Annotation\Inject;
 use Hyperf\Testing\TestCase;
 use Uss\Message\App\Executor\Command\NotificationCmdExe;
 use Uss\Message\Client\Dto\Command\NotificationCmd;

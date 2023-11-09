@@ -7,6 +7,7 @@ declare(strict_types=1);
  * @link     https://github.com/maliboot
  * @document https://github.com/maliboot
  */
+
 namespace Uss\Message\Infra\MessageSender;
 
 use _PHPStan_690619d82\Nette\Neon\Exception;

@@ -7,6 +7,7 @@ declare(strict_types=1);
  * @link     https://github.com/maliboot
  * @document https://github.com/maliboot
  */
+
 namespace Uss\Message\App\Executor\Command;
 
 use GuzzleHttp\Exception\GuzzleException;

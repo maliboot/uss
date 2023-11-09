@@ -7,29 +7,26 @@ declare(strict_types=1);
  * @link     https://github.com/maliboot
  * @document https://github.com/maliboot
  */
+
 namespace Uss\Message\Client\ViewObject;
 
-use MaliBoot\Dto\AbstractViewObject;
-use MaliBoot\Dto\Annotation\Field;
 use MaliBoot\Dto\Annotation\ViewObject;
 
-/**
- * @method string getMsg() 获取msg.
- * @method self setMsg(string $msg) 设置msg.
- * @method string getRequestId() 获取requestId.
- * @method self setRequestId(string $requestId) 设置requestId.
- * @method bool getResult() ...
- * @method self setResult(bool $result) ...
- */
 #[ViewObject(name: 'result')]
-class ResultVO extends AbstractViewObject
+class ResultVO
 {
-    #[Field(name: 'result', type: 'bool')]
+    /**
+     * result.
+     */
     private bool $result = false;
 
-    #[Field(name: 'msg', type: 'string')]
+    /**
+     * msg.
+     */
     private string $msg = '';
 
-    #[Field(name: 'requestId', type: 'string')]
+    /**
+     * requestId.
+     */
     private string $requestId = '';
 }

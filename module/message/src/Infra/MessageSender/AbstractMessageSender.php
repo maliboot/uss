@@ -7,6 +7,7 @@ declare(strict_types=1);
  * @link     https://github.com/maliboot
  * @document https://github.com/maliboot
  */
+
 namespace Uss\Message\Infra\MessageSender;
 
 use Exception;
@@ -25,8 +26,7 @@ abstract class AbstractMessageSender extends Job
     public function __construct(
         private string $msgUniqid,
         protected array $msgParams,
-    ) {
-    }
+    ) {}
 
     public function handle()
     {
