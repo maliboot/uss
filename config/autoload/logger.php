@@ -17,7 +17,7 @@ $logDir = env('WWW_RUNTIME_DIR', '/tmp/' . env('APP_NAME')) . '/logs/';
 $formatter = [
     'class' => LogstashFormatter::class,
     'constructor' => [
-        'applicationName' => env('APP_NAME'),
+        'applicationName' => env('APP_NAME', 'maliboot'),
     ],
 ];
 
