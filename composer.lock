@@ -1044,16 +1044,16 @@
         },
         {
             "name": "hyperf/async-queue",
-            "version": "v3.0.37",
+            "version": "v3.0.43",
             "source": {
                 "type": "git",
                 "url": "https://github.com/hyperf/async-queue.git",
-                "reference": "b7976f748fa56d4d0d4e343c4fe32a91518ea031"
+                "reference": "7ff36925149f2b888cde3c32ad300e1c9b244dd6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/hyperf/async-queue/zipball/b7976f748fa56d4d0d4e343c4fe32a91518ea031",
-                "reference": "b7976f748fa56d4d0d4e343c4fe32a91518ea031",
+                "url": "https://api.github.com/repos/hyperf/async-queue/zipball/7ff36925149f2b888cde3c32ad300e1c9b244dd6",
+                "reference": "7ff36925149f2b888cde3c32ad300e1c9b244dd6",
                 "shasum": ""
             },
             "require": {
@@ -1104,7 +1104,7 @@
                 "pull-request": "https://github.com/hyperf/hyperf/pulls",
                 "source": "https://github.com/hyperf/hyperf"
             },
-            "time": "2023-09-19T01:50:18+00:00"
+            "time": "2023-11-07T08:05:54+00:00"
         },
         {
             "name": "hyperf/cache",
@@ -2357,16 +2357,16 @@
         },
         {
             "name": "hyperf/http-server",
-            "version": "v3.0.41",
+            "version": "v3.0.43",
             "source": {
                 "type": "git",
                 "url": "https://github.com/hyperf/http-server.git",
-                "reference": "2aabe1c328e1408457433952f5a8f779e561c289"
+                "reference": "fd707fb3dc13bae5e7b475404688fb00acffcd7f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/hyperf/http-server/zipball/2aabe1c328e1408457433952f5a8f779e561c289",
-                "reference": "2aabe1c328e1408457433952f5a8f779e561c289",
+                "url": "https://api.github.com/repos/hyperf/http-server/zipball/fd707fb3dc13bae5e7b475404688fb00acffcd7f",
+                "reference": "fd707fb3dc13bae5e7b475404688fb00acffcd7f",
                 "shasum": ""
             },
             "require": {
@@ -2423,7 +2423,7 @@
                 "pull-request": "https://github.com/hyperf/hyperf/pulls",
                 "source": "https://github.com/hyperf/hyperf"
             },
-            "time": "2023-10-26T10:42:14+00:00"
+            "time": "2023-11-10T01:41:36+00:00"
         },
         {
             "name": "hyperf/logger",
@@ -3106,16 +3106,16 @@
         },
         {
             "name": "hyperf/support",
-            "version": "v3.0.37",
+            "version": "v3.0.43",
             "source": {
                 "type": "git",
                 "url": "https://github.com/hyperf/support.git",
-                "reference": "71eda508f6a8ecea3bdd9be14e8076d748f3567b"
+                "reference": "e3690f00a011185472c8d5a59e2c929a50400e78"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/hyperf/support/zipball/71eda508f6a8ecea3bdd9be14e8076d748f3567b",
-                "reference": "71eda508f6a8ecea3bdd9be14e8076d748f3567b",
+                "url": "https://api.github.com/repos/hyperf/support/zipball/e3690f00a011185472c8d5a59e2c929a50400e78",
+                "reference": "e3690f00a011185472c8d5a59e2c929a50400e78",
                 "shasum": ""
             },
             "require": {
@@ -3162,7 +3162,7 @@
                 "pull-request": "https://github.com/hyperf/hyperf/pulls",
                 "source": "https://github.com/hyperf/hyperf"
             },
-            "time": "2023-09-21T04:06:36+00:00"
+            "time": "2023-11-06T07:31:50+00:00"
         },
         {
             "name": "hyperf/tappable",
@@ -4542,6 +4542,52 @@
             "time": "2022-12-11T20:36:23+00:00"
         },
         {
+            "name": "maliboot/api-annotation",
+            "version": "v0.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/maliboot/api-annotation.git",
+                "reference": "0f692f6c09c3a9689b912536b38f900e10dd37b5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/maliboot/api-annotation/zipball/0f692f6c09c3a9689b912536b38f900e10dd37b5",
+                "reference": "0f692f6c09c3a9689b912536b38f900e10dd37b5",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=8.0"
+            },
+            "type": "library",
+            "extra": {
+                "hyperf": {
+                    "config": "MaliBoot\\ApiAnnotation\\ConfigProvider"
+                }
+            },
+            "autoload": {
+                "files": [],
+                "psr-4": {
+                    "MaliBoot\\ApiAnnotation\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "A api-annotation library for Maliboot.",
+            "keywords": [
+                "Maliboot",
+                "hyperf",
+                "php",
+                "swoole"
+            ],
+            "support": {
+                "issues": "https://github.com/maliboot/api-annotation/issues",
+                "source": "https://github.com/maliboot/api-annotation/tree/v0.1.1"
+            },
+            "time": "2023-05-31T03:06:10+00:00"
+        },
+        {
             "name": "maliboot/auth",
             "version": "v0.1.1",
             "source": {
@@ -4643,23 +4689,25 @@
         },
         {
             "name": "maliboot/cola",
-            "version": "v0.1.1",
+            "version": "v0.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/maliboot/cola.git",
-                "reference": "76e07e6ee0b2efc0ef06f3aa7d006bb2ea8e4c64"
+                "reference": "f2ff8e2fd649859c6459ad5b76e2644652209345"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/maliboot/cola/zipball/76e07e6ee0b2efc0ef06f3aa7d006bb2ea8e4c64",
-                "reference": "76e07e6ee0b2efc0ef06f3aa7d006bb2ea8e4c64",
+                "url": "https://api.github.com/repos/maliboot/cola/zipball/f2ff8e2fd649859c6459ad5b76e2644652209345",
+                "reference": "f2ff8e2fd649859c6459ad5b76e2644652209345",
                 "shasum": ""
             },
             "require": {
                 "hyperf/paginator": "^3.0",
+                "maliboot/api-annotation": "*",
                 "maliboot/di": "*",
                 "maliboot/dto": "*",
                 "maliboot/lombok": "*",
+                "maliboot/utils": "*",
                 "php": ">=8.0"
             },
             "type": "library",
@@ -4688,9 +4736,9 @@
             ],
             "support": {
                 "issues": "https://github.com/maliboot/cola/issues",
-                "source": "https://github.com/maliboot/cola/tree/v0.1.1"
+                "source": "https://github.com/maliboot/cola/tree/v0.1.2"
             },
-            "time": "2023-11-08T07:42:10+00:00"
+            "time": "2023-11-09T11:13:23+00:00"
         },
         {
             "name": "maliboot/contract",
@@ -4741,16 +4789,16 @@
         },
         {
             "name": "maliboot/database",
-            "version": "v0.1.1",
+            "version": "v0.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/maliboot/database.git",
-                "reference": "3fe8f64ff2228d406005ad558ba79d36fa58c5c4"
+                "reference": "42841690e7c60df7182dfaad3635d278a0eedc9e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/maliboot/database/zipball/3fe8f64ff2228d406005ad558ba79d36fa58c5c4",
-                "reference": "3fe8f64ff2228d406005ad558ba79d36fa58c5c4",
+                "url": "https://api.github.com/repos/maliboot/database/zipball/42841690e7c60df7182dfaad3635d278a0eedc9e",
+                "reference": "42841690e7c60df7182dfaad3635d278a0eedc9e",
                 "shasum": ""
             },
             "require": {
@@ -4782,9 +4830,9 @@
             ],
             "support": {
                 "issues": "https://github.com/maliboot/database/issues",
-                "source": "https://github.com/maliboot/database/tree/v0.1.1"
+                "source": "https://github.com/maliboot/database/tree/v0.1.2"
             },
-            "time": "2023-05-31T03:06:10+00:00"
+            "time": "2023-11-08T11:50:31+00:00"
         },
         {
             "name": "maliboot/di",
@@ -4835,16 +4883,16 @@
         },
         {
             "name": "maliboot/dto",
-            "version": "v0.1.1",
+            "version": "v0.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/maliboot/dto.git",
-                "reference": "5001453bb9d9abc8a667907a609a51a3a241a668"
+                "reference": "a0b9346f6981a59b6e4cfd8a1e22e29d99e1a3d9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/maliboot/dto/zipball/5001453bb9d9abc8a667907a609a51a3a241a668",
-                "reference": "5001453bb9d9abc8a667907a609a51a3a241a668",
+                "url": "https://api.github.com/repos/maliboot/dto/zipball/a0b9346f6981a59b6e4cfd8a1e22e29d99e1a3d9",
+                "reference": "a0b9346f6981a59b6e4cfd8a1e22e29d99e1a3d9",
                 "shasum": ""
             },
             "require": {
@@ -4878,9 +4926,9 @@
             ],
             "support": {
                 "issues": "https://github.com/maliboot/dto/issues",
-                "source": "https://github.com/maliboot/dto/tree/v0.1.1"
+                "source": "https://github.com/maliboot/dto/tree/v0.1.2"
             },
-            "time": "2023-08-25T07:19:36+00:00"
+            "time": "2023-11-09T07:14:26+00:00"
         },
         {
             "name": "maliboot/error-code",
@@ -4977,54 +5025,6 @@
             "time": "2023-06-27T09:14:28+00:00"
         },
         {
-            "name": "maliboot/field-collector",
-            "version": "v0.1.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/maliboot/field-collector.git",
-                "reference": "cfff3cf9c8dcae51d37f6413fff7fd49cdad34df"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/maliboot/field-collector/zipball/cfff3cf9c8dcae51d37f6413fff7fd49cdad34df",
-                "reference": "cfff3cf9c8dcae51d37f6413fff7fd49cdad34df",
-                "shasum": ""
-            },
-            "require": {
-                "nelexa/zip": "^4.0",
-                "php": ">=8.0"
-            },
-            "type": "library",
-            "extra": {
-                "hyperf": {
-                    "config": "MaliBoot\\FieldCollector\\ConfigProvider"
-                }
-            },
-            "autoload": {
-                "files": [],
-                "psr-4": {
-                    "MaliBoot\\FieldCollector\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "description": "A field-collector for MaliBoot.",
-            "keywords": [
-                "Maliboot",
-                "hyperf",
-                "php",
-                "plugin",
-                "swoole"
-            ],
-            "support": {
-                "issues": "https://github.com/maliboot/field-collector/issues",
-                "source": "https://github.com/maliboot/field-collector/tree/v0.1.1"
-            },
-            "time": "2023-05-31T03:06:10+00:00"
-        },
-        {
             "name": "maliboot/hashing",
             "version": "v0.1.1",
             "source": {
@@ -5073,16 +5073,16 @@
         },
         {
             "name": "maliboot/lombok",
-            "version": "v0.1.1",
+            "version": "v0.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/maliboot/lombok.git",
-                "reference": "c37f97ffd5030b8ad31347cee4b7e40168f0a260"
+                "reference": "ea4eefb119fdffee9f8542563a6cc1b212f3d459"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/maliboot/lombok/zipball/c37f97ffd5030b8ad31347cee4b7e40168f0a260",
-                "reference": "c37f97ffd5030b8ad31347cee4b7e40168f0a260",
+                "url": "https://api.github.com/repos/maliboot/lombok/zipball/ea4eefb119fdffee9f8542563a6cc1b212f3d459",
+                "reference": "ea4eefb119fdffee9f8542563a6cc1b212f3d459",
                 "shasum": ""
             },
             "require": {
@@ -5118,9 +5118,9 @@
             ],
             "support": {
                 "issues": "https://github.com/maliboot/lombok/issues",
-                "source": "https://github.com/maliboot/lombok/tree/v0.1.1"
+                "source": "https://github.com/maliboot/lombok/tree/v0.1.2"
             },
-            "time": "2023-11-08T09:14:42+00:00"
+            "time": "2023-11-09T11:11:53+00:00"
         },
         {
             "name": "maliboot/plugin",
@@ -5358,16 +5358,16 @@
         },
         {
             "name": "maliboot/response-wrapper",
-            "version": "v0.1.1",
+            "version": "v0.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/maliboot/response-wrapper.git",
-                "reference": "4f8bede22b30af06f34869e7206980a12bfb0855"
+                "reference": "bb7702a79fddc6a94a421135bdc25ce3d2681694"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/maliboot/response-wrapper/zipball/4f8bede22b30af06f34869e7206980a12bfb0855",
-                "reference": "4f8bede22b30af06f34869e7206980a12bfb0855",
+                "url": "https://api.github.com/repos/maliboot/response-wrapper/zipball/bb7702a79fddc6a94a421135bdc25ce3d2681694",
+                "reference": "bb7702a79fddc6a94a421135bdc25ce3d2681694",
                 "shasum": ""
             },
             "require": {
@@ -5399,9 +5399,9 @@
             ],
             "support": {
                 "issues": "https://github.com/maliboot/response-wrapper/issues",
-                "source": "https://github.com/maliboot/response-wrapper/tree/v0.1.1"
+                "source": "https://github.com/maliboot/response-wrapper/tree/v0.1.2"
             },
-            "time": "2023-06-07T11:57:03+00:00"
+            "time": "2023-11-09T07:14:26+00:00"
         },
         {
             "name": "maliboot/swagger",
@@ -5451,20 +5451,19 @@
         },
         {
             "name": "maliboot/utils",
-            "version": "v0.1.1",
+            "version": "v0.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/maliboot/utils.git",
-                "reference": "d3ef9969155bfa538ad4e990e4603e81c5a8b477"
+                "reference": "17334715091b1e8b29a5425722564c1ea16fa571"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/maliboot/utils/zipball/d3ef9969155bfa538ad4e990e4603e81c5a8b477",
-                "reference": "d3ef9969155bfa538ad4e990e4603e81c5a8b477",
+                "url": "https://api.github.com/repos/maliboot/utils/zipball/17334715091b1e8b29a5425722564c1ea16fa571",
+                "reference": "17334715091b1e8b29a5425722564c1ea16fa571",
                 "shasum": ""
             },
             "require": {
-                "maliboot/field-collector": "*",
                 "php": ">=8.0"
             },
             "type": "library",
@@ -5494,9 +5493,9 @@
             ],
             "support": {
                 "issues": "https://github.com/maliboot/utils/issues",
-                "source": "https://github.com/maliboot/utils/tree/v0.1.1"
+                "source": "https://github.com/maliboot/utils/tree/v0.1.2"
             },
-            "time": "2023-08-23T11:56:22+00:00"
+            "time": "2023-11-09T07:14:26+00:00"
         },
         {
             "name": "maliboot/validation",
@@ -9294,12 +9293,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/maliboot/devtool.git",
-                "reference": "c23505d1dfa9edb3dd9c300745e75802de775917"
+                "reference": "bb3f2d7e54358eadec9aa786e5a82de114149c4c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/maliboot/devtool/zipball/c23505d1dfa9edb3dd9c300745e75802de775917",
-                "reference": "c23505d1dfa9edb3dd9c300745e75802de775917",
+                "url": "https://api.github.com/repos/maliboot/devtool/zipball/bb3f2d7e54358eadec9aa786e5a82de114149c4c",
+                "reference": "bb3f2d7e54358eadec9aa786e5a82de114149c4c",
                 "shasum": ""
             },
             "require": {
@@ -9340,9 +9339,9 @@
             ],
             "support": {
                 "issues": "https://github.com/maliboot/devtool/issues",
-                "source": "https://github.com/maliboot/devtool/tree/v0.1.1"
+                "source": "https://github.com/maliboot/devtool/tree/v0.1.2"
             },
-            "time": "2023-09-07T11:58:20+00:00"
+            "time": "2023-11-09T11:14:22+00:00"
         },
         {
             "name": "mockery/mockery",
