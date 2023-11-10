@@ -82,7 +82,7 @@ class NotificationCmdExe extends AbstractExecutor
                 ));
             }
             $msg->setContent($renderContent);
-            $msg->setAppLink($tpl->getAppLink());
+            ($appLinkIns = $tpl->getAppLink()) !== null && $msg->setAppLink($appLinkIns);
             $msg->setMailFiles($notificationCmd->getMailFilesByJson());
             $form = $notificationCmd->getFrom() ? $notificationCmd->getFrom() : $tpl->getMessageForm();
             $msg->setFrom($form);
