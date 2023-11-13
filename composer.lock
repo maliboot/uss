@@ -4883,16 +4883,16 @@
         },
         {
             "name": "maliboot/dto",
-            "version": "v0.1.2",
+            "version": "v0.1.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/maliboot/dto.git",
-                "reference": "a0b9346f6981a59b6e4cfd8a1e22e29d99e1a3d9"
+                "reference": "45bf63c45eb2bd5ca95f9c0723f329c5343c9a88"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/maliboot/dto/zipball/a0b9346f6981a59b6e4cfd8a1e22e29d99e1a3d9",
-                "reference": "a0b9346f6981a59b6e4cfd8a1e22e29d99e1a3d9",
+                "url": "https://api.github.com/repos/maliboot/dto/zipball/45bf63c45eb2bd5ca95f9c0723f329c5343c9a88",
+                "reference": "45bf63c45eb2bd5ca95f9c0723f329c5343c9a88",
                 "shasum": ""
             },
             "require": {
@@ -4926,9 +4926,9 @@
             ],
             "support": {
                 "issues": "https://github.com/maliboot/dto/issues",
-                "source": "https://github.com/maliboot/dto/tree/v0.1.2"
+                "source": "https://github.com/maliboot/dto/tree/v0.1.4"
             },
-            "time": "2023-11-09T07:14:26+00:00"
+            "time": "2023-11-13T10:33:32+00:00"
         },
         {
             "name": "maliboot/error-code",
