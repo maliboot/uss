@@ -33,7 +33,8 @@ class JPushSender extends AbstractMessageSender
         $openUrl = $this->msgParams['appLink']['uri'] ?? '';
         $androidUriActivity = $this->msgParams['appLink']['androidUriActivity'] ?? '';
         if (! empty($openUrl) && ! empty($bizExt)) {
-            $openUrl .= '?' . http_build_query($bizExt);
+            [$baseUri, $queryArr] = $this->parseUrl($openUrl);
+            $openUrl = $baseUri . '?' . http_build_query([...$queryArr, ...$bizExt]);
         }
         if (empty($phones)) {
             return false;
@@ -70,5 +71,15 @@ class JPushSender extends AbstractMessageSender
 
         $push->send();
         return true;
+    }
+
+    private function parseUrl(string $url): array
+    {
+        $queryFlagIndex = mb_strpos($url, '?');
+        $query = $queryFlagIndex === false ? '' : mb_substr($url, $queryFlagIndex + 1);
+        $baseUri = $queryFlagIndex === false ? $url : mb_substr($url, 0, $queryFlagIndex);
+        $queryArr = [];
+        mb_parse_str($query, $queryArr);
+        return [$baseUri, $queryArr,];
     }
 }
