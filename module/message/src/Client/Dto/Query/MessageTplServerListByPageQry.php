@@ -15,5 +15,5 @@ use MaliBoot\Dto\Annotation\DataTransferObject;
 /**
  * MessageTplServerListByPageQry.
  */
-#[DataTransferObject(name: 'MessageTplServer', type: 'query')]
+#[DataTransferObject(name: 'MessageTplServer', type: 'query-page')]
 class MessageTplServerListByPageQry {}
