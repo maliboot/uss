@@ -10,7 +10,6 @@ declare(strict_types=1);
 
 namespace Uss\Message\Infra\MessageSender;
 
-use _PHPStan_690619d82\Nette\Neon\Exception;
 use Overtrue\EasySms\EasySms;
 use Overtrue\EasySms\Exceptions\NoGatewayAvailableException;
 use Overtrue\EasySms\PhoneNumber;
@@ -61,7 +60,9 @@ class AliSmsSender extends AbstractMessageSender
             try {
                 $easySms->send(new PhoneNumber((int) $item, 86), $msg);
             } catch (NoGatewayAvailableException $e) {
-                throw new Exception($e->getException('aliyun'));
+                $aliyunException = $e->getException('aliyun');
+                $rawMsg = empty($aliyunException?->raw) ? '' : json_encode($aliyunException->raw, JSON_UNESCAPED_UNICODE);
+                throw new \Exception(sprintf('发送短信异常:[%s], RAW:[%s]', $aliyunException?->getMessage(), $rawMsg));
             }
         }
         return true;
