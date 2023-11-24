@@ -23,27 +23,23 @@ class NotificationTest extends TestCase
 {
     public function testJPush()
     {
-        $res = false;
         try {
-            $vo = \Hyperf\Support\make(NotificationCmdExe::class)->execute(NotificationCmd::of([
+            \Hyperf\Support\make(NotificationCmdExe::class)->execute(NotificationCmd::of([
                 'tplGroupUniqid' => 'tg654065f1625fc',
                 'requestId' => md5((string) time()),
                 'requestSource' => 'testUnit',
-                'appPushTo' => json_encode(['18989898989']),
-                'vars' => json_encode([
-                    'company' => '北京马立合作社',
-                    'money' => 325000,
-                    'order_num' => 'SCO112101010',
-                ]),
+                'appPushTo' => json_encode(['18888888888']),
+                'title' => 'xxxx',
+                'content' => 'yyyy',
+                'appLinkUri' => 'uni://page/__UNI__9C001F4?path=pages/home/index?pageId=/orderDetail',
+                'appLinkAndroidUriActivity' => 'xxx://app/push',
                 'bizExt' => json_encode([
                     'orderId' => 10702,
                 ]),
             ]));
-            dump($vo);
-            $res = true;
         } catch (Exception $e) {
-            dump($e);
+            $this->fail($e->getMessage());
         }
-        $this->assertTrue($res);
+        $this->assertTrue(true);
     }
 }

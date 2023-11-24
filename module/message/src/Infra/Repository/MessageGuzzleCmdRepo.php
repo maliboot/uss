@@ -34,7 +34,7 @@ class MessageGuzzleCmdRepo implements MessageGuzzleRepo
             return false;
         }
         $sendClassName = $senders[$message->getType()]['className'];
-        $sendParams = $message->toArrayRecursion();
+        $sendParams = $message->toArray();
         /** @var AbstractMessageSender $sender */
         $sender = new $sendClassName($message->getUniqid(), $sendParams);
         $this->driver->push($sender, $delay);

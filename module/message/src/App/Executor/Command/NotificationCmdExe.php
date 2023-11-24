@@ -19,6 +19,7 @@ use MaliBoot\Di\Annotation\Inject;
 use Uss\Message\Client\Dto\Command\NotificationCmd;
 use Uss\Message\Client\ViewObject\ResultVO;
 use Uss\Message\Domain\Model\Message\Message;
+use Uss\Message\Domain\Model\MessageTplAppLink\MessageTplAppLink;
 use Uss\Message\Domain\Repository\MessageRepo;
 use Uss\Message\Domain\Service\MessageDomainService;
 use Uss\Message\Domain\Service\MessageTplGroupDomainService;
@@ -70,23 +71,34 @@ class NotificationCmdExe extends AbstractExecutor
             $msg->setUniqid(uniqid('s', true));
             $msg->setTplGroupId($tplGroup->getId());
             $msg->setType($tpl->getType());
-            $msg->setTitle($tpl->getTitle());
-            try {
-                $renderContent = $this->viewRender->getContents($tpl->getBladeTemplate(), $notificationCmd->parseVarsToArray());
-            } catch (Exception $e) {
-                return $result->setMsg(sprintf(
-                    'Blade模板[id=%s]渲染失败，取消本模板消息发送，请自查。模板内容:[%s],错误信息:[%s]',
-                    $tpl->getId(),
-                    $tpl->getContent(),
-                    $e->getMessage()
-                ));
+
+            $msg->setTitle($notificationCmd->getTitle($tpl->getTitle()));
+            $requestContent = $notificationCmd->getContent();
+            if ($requestContent != null) {
+                $msg->setContent($requestContent);
+            } else {
+                try {
+                    $renderContent = $this->viewRender->getContents($tpl->getBladeTemplate(), $notificationCmd->parseVarsToArray());
+                } catch (Exception $e) {
+                    return $result->setMsg(sprintf(
+                        'Blade模板[id=%s]渲染失败，取消本模板消息发送，请自查。模板内容:[%s],错误信息:[%s]',
+                        $tpl->getId(),
+                        $tpl->getContent(),
+                        $e->getMessage()
+                    ));
+                }
+                $msg->setContent($renderContent);
             }
-            $msg->setContent($renderContent);
-            ($appLinkIns = $tpl->getAppLink()) !== null && $msg->setAppLink($appLinkIns);
+
+            $appLinkIns = $tpl->getAppLink() ? $tpl->getAppLink() : make(MessageTplAppLink::class);
+            ($appLinkUri = $notificationCmd->getAppLinkUri()) !== null && $appLinkIns->setUri($appLinkUri);
+            ($appLinkAndroidUri = $notificationCmd->getAppLinkAndroidUriActivity()) !== null && $appLinkIns->setAndroidUriActivity($appLinkAndroidUri);
+            $msg->setAppLink($appLinkIns);
+
             $msg->setMailFiles($notificationCmd->getMailFilesByJson());
-            $form = $notificationCmd->getFrom() ? $notificationCmd->getFrom() : $tpl->getMessageForm();
+            $form = $notificationCmd->getFrom() ?: $tpl->getMessageForm();
             $msg->setFrom($form);
-            $formName = $notificationCmd->getFromName() ? $notificationCmd->getFromName() : $tpl->getServer()->getName();
+            $formName = $notificationCmd->getFromName() ?: $tpl->getServer()->getName();
             $msg->setFromName($formName);
 
             $msg->setTo(json_encode([...$tpl->getToList(), ...$notificationCmd->getToList($tpl->getType())]));
@@ -104,13 +116,15 @@ class NotificationCmdExe extends AbstractExecutor
             $msg->setSmsTemplateCode($smsTpl ? $smsTpl->getCode() : '');
             // server配置
             $msg->setServer($tpl->getServer());
+            // appLink配置
+            $msg->initAppLinkExt();
             $msgList->push($msg);
         }
 
         if ($msgList->isEmpty()) {
             $result->setResult()->setMsg('无已启用的模板消息');
         }
-        $this->messageRepo->insert($msgList->toArray());
+        $this->messageRepo->insert($msgList->all());
         $this->messageDomainService->sendList($msgList);
         return $result->setResult(true);
     }

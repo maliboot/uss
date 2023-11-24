@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 namespace Uss\Message\Domain\Repository;
 
+use Hyperf\Collection\Collection;
 use MaliBoot\Cola\Domain\CommandRepositoryInterface;
 use Uss\Message\Domain\Model\MessageTplGroup\MessageTpl;
 
@@ -20,7 +21,7 @@ interface MessageTplRepo extends CommandRepositoryInterface
 {
     /**
      * @param int $groupId ...
-     * @return MessageTpl[] ...
+     * @return Collection{TValue: MessageTpl} ...
      */
-    public function allByGroupId(int $groupId): array;
+    public function allByGroupId(int $groupId): Collection;
 }

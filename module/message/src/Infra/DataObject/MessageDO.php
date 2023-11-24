@@ -66,6 +66,11 @@ class MessageDO
     private string $smsTemplateCode;
 
     /**
+     * App推送可选参数.
+     */
+    private string $appLinkExt;
+
+    /**
      * 内容变量.
      */
     private string $contentVars;

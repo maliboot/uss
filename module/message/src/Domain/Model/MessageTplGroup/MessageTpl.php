@@ -163,19 +163,16 @@ class MessageTpl
         return $fileM5;
     }
 
-    public function getAppLinkUrl(string $default = ''): string
+    public function getAppLink(): ?MessageTplAppLink
     {
         if (! $this->isPropertyInitialized('appLink')) {
-            return $default;
+            return null;
         }
-        if (! $this->getAppLink()->getStatus()) {
-            return '';
+        if (! $this->appLink->getStatus()) {
+            return null;
         }
-        $url = $this->getAppLink()->getLink();
-        if ($url === null) {
-            return '';
-        }
-        return $url;
+
+        return $this->appLink;
     }
 
     public function getMessageForm(): string

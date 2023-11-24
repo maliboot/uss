@@ -48,7 +48,7 @@ class MessageTplGroupDomainService
 
         // 查询所有模板
         $tplList = $this->messageTplRepo->allByGroupId($group->getId());
-        if (empty($tplList)) {
+        if ($tplList->isEmpty()) {
             return null;
         }
 
@@ -57,6 +57,7 @@ class MessageTplGroupDomainService
         $appLinkIdList = [];
         $smsTemplateIdList = [];
         foreach ($tplList as $tpl) {
+            /** @var MessageTpl $tpl */
             // app类型时，查询app-link
             if ($tpl->getType() === 2 && $tpl->getAppLinkId() !== 0) {
                 $appLinkIdList[$tpl->getId()] = $tpl->getAppLinkId();
@@ -94,11 +95,11 @@ class MessageTplGroupDomainService
         }
 
         // 整合数据
-        return $group->setMessageTplList(array_map(function (MessageTpl $tpl) use ($serverList, $appLinkList, $smsTemplateList) {
+        return $group->setMessageTplList($tplList->map(function (MessageTpl $tpl) use ($serverList, $appLinkList, $smsTemplateList) {
             isset($serverList[$tpl->getServerId()]) && $tpl->setServer($serverList[$tpl->getServerId()]);
             isset($appLinkList[$tpl->getAppLinkId()]) && $tpl->setAppLink($appLinkList[$tpl->getAppLinkId()]);
             isset($smsTemplateList[$tpl->getSmsTemplateId()]) && $tpl->setMessageTplSmsTemplate($smsTemplateList[$tpl->getSmsTemplateId()]);
             return $tpl;
-        }, $tplList));
+        })->all());
     }
 }

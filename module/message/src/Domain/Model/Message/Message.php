@@ -11,9 +11,9 @@ declare(strict_types=1);
 namespace Uss\Message\Domain\Model\Message;
 
 use MaliBoot\Cola\Annotation\AggregateRoot;
-use MaliBoot\Cola\Domain\EntityInterface;
 use Uss\Message\Domain\Model\MessageTplAppLink\MessageTplAppLink;
 use Uss\Message\Domain\Model\MessageTplServer\MessageTplServer;
+use Uss\Message\Infra\Common\Json;
 
 /**
  * 消息推送
@@ -82,6 +82,11 @@ class Message
      * 短信模板code编号.
      */
     private string $smsTemplateCode;
+
+    /**
+     * App推送可选参数.
+     */
+    private string $appLinkExt;
 
     /**
      * 内容变量.
@@ -208,11 +213,6 @@ class Message
         $this->server = $server;
     }
 
-    public function getAppLink(): MessageTplAppLink
-    {
-        return $this->appLink;
-    }
-
     public function setAppLink(MessageTplAppLink $appLink): void
     {
         $this->appLink = $appLink;
@@ -237,20 +237,59 @@ class Message
         return max($delay, 0);
     }
 
-    public function toArrayRecursion(): array
+    public function initAppLinkExt(): void
     {
-        $result = [];
-        $vars = get_class_vars(__CLASS__);
-        foreach ($vars as $field => $val) {
-            if (! $this->isPropertyInitialized($field)) {
-                continue;
-            }
-            $val = $this->{$field};
-            $result[$field] = $val;
-            if ($val instanceof EntityInterface) {
-                $result[$field] = $val->toArray();
-            }
+        $this->initJPushAppLinkExt();
+    }
+
+    protected function initJPushAppLinkExt(): void
+    {
+        $appLink = $this->getAppLink();
+        $msgId = $this->getUniqid('');
+        $sound = $appLink?->getSound();
+        $bizExt = Json::decode($this->getBizExt(''));
+        $openUrl = $appLink?->getUri() ?? '';
+        $androidUriActivity = $appLink?->getAndroidUriActivity() ?? '';
+        if (! empty($openUrl) && ! empty($bizExt)) {
+            [$baseUri, $queryArr] = $this->parseUrl($openUrl);
+            $openUrl = $baseUri . '?' . http_build_query([...$queryArr, ...$bizExt]);
         }
-        return $result;
+
+        $notification = [
+            'extras' => [
+                'message_id' => $msgId,
+                'open_url' => $openUrl,
+                'biz_id' => $this->getBizId(0),
+                'biz_no' => $this->getBizNo(''),
+                'biz_type' => $this->getBizType(''),
+            ],
+        ];
+        $sound && $notification['sound'] = $sound;
+
+
+        if (! empty($androidUriActivity) && str_contains($androidUriActivity, '://')) {
+            if (str_contains($androidUriActivity, '?')) {
+                $androidUriActivity .= '&open_url=' . urlencode($openUrl);
+            } else {
+                $androidUriActivity .= '?open_url=' . urlencode($openUrl);
+            }
+            $notification['intent']['url'] = $androidUriActivity;
+        }
+
+        $oldAppLinkExt = Json::decode($this->getAppLinkExt(''));
+        $oldAppLinkExt['jpush'] = [
+            'notification' => $notification,
+        ];
+        $this->setAppLinkExt(json_encode($oldAppLinkExt, JSON_UNESCAPED_UNICODE));
+    }
+
+    protected function parseUrl(string $url): array
+    {
+        $queryFlagIndex = mb_strpos($url, '?');
+        $query = $queryFlagIndex === false ? '' : mb_substr($url, $queryFlagIndex + 1);
+        $baseUri = $queryFlagIndex === false ? $url : mb_substr($url, 0, $queryFlagIndex);
+        $queryArr = [];
+        mb_parse_str($query, $queryArr);
+        return [$baseUri, $queryArr,];
     }
 }

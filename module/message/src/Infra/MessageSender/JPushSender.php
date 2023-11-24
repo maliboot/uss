@@ -10,7 +10,9 @@ declare(strict_types=1);
 
 namespace Uss\Message\Infra\MessageSender;
 
+use Exception;
 use JPush\Client;
+use JPush\Exceptions\JPushException;
 use Uss\Message\Infra\MessageSender\Annotation\MessageSender;
 
 #[MessageSender(messageType: 2)]
@@ -22,20 +24,15 @@ class JPushSender extends AbstractMessageSender
      */
     protected function execute(): bool
     {
-        $msgId = $this->msgParams['id'] ?? 0;
         $appKey = $this->msgParams['server']['appKey'] ?? '';
         $appSecret = $this->msgParams['server']['appSecret'] ?? '';
         $title = $this->msgParams['title'] ?? '';
         $content = $this->msgParams['content'] ?? '';
         $phones = array_map('md5', $this->getArrayFromJson('to'));
-        $sound = $this->msgParams['appLink']['sound'] ?? '';
-        $bizExt = $this->getArrayFromJson('bizExt');
-        $openUrl = $this->msgParams['appLink']['uri'] ?? '';
-        $androidUriActivity = $this->msgParams['appLink']['androidUriActivity'] ?? '';
-        if (! empty($openUrl) && ! empty($bizExt)) {
-            [$baseUri, $queryArr] = $this->parseUrl($openUrl);
-            $openUrl = $baseUri . '?' . http_build_query([...$queryArr, ...$bizExt]);
-        }
+
+        $appLinkExt = $this->getArrayFromJson('appLinkExt');
+        $notification = $appLinkExt['jpush']['notification'] ?? [];
+
         if (empty($phones)) {
             return false;
         }
@@ -47,39 +44,18 @@ class JPushSender extends AbstractMessageSender
         $push->addAlias($phones);
         $push->options(['apns_production' => \Hyperf\Config\config('app_env') === 'production']);
 
-        $notification = [
-            'sound' => $sound,
-            'extras' => [
-                'message_id' => $msgId,
-                'open_url' => $openUrl,
-                'biz_id' => $this->msgParams['bizId'] ?? 0,
-                'biz_no' => $this->msgParams['bizNo'] ?? '',
-                'biz_type' => $this->msgParams['bizType'] ?? '',
-            ],
-        ];
-        $push->iosNotification(['title' => $title, 'subtitle' => $content], $notification);
-
-        if (! empty($androidUriActivity) && str_contains($androidUriActivity, '://')) {
-            if (str_contains($androidUriActivity, '?')) {
-                $androidUriActivity .= '&open_url=' . urlencode($openUrl);
-            } else {
-                $androidUriActivity .= '?open_url=' . urlencode($openUrl);
-            }
-            $notification['intent']['url'] = $androidUriActivity;
-        }
+        // android
         $push->androidNotification($content, ['title' => $title, ...$notification]);
-
-        $push->send();
+        if (isset($notification['intent']['url'])) {
+            unset($notification['intent']);
+        }
+        // ios
+        $push->iosNotification(['title' => $title, 'subtitle' => $content], $notification);
+        try {
+            $push->send();
+        } catch (JPushException $e) {
+            throw new Exception(sprintf('极光推送失败，code:[%d]，msg:[%s]', $e->getCode(), $e->getMessage()));
+        }
         return true;
-    }
-
-    private function parseUrl(string $url): array
-    {
-        $queryFlagIndex = mb_strpos($url, '?');
-        $query = $queryFlagIndex === false ? '' : mb_substr($url, $queryFlagIndex + 1);
-        $baseUri = $queryFlagIndex === false ? $url : mb_substr($url, 0, $queryFlagIndex);
-        $queryArr = [];
-        mb_parse_str($query, $queryArr);
-        return [$baseUri, $queryArr,];
     }
 }

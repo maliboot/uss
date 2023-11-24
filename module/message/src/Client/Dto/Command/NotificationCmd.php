@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 namespace Uss\Message\Client\Dto\Command;
 
+use JetBrains\PhpStorm\ExpectedValues;
 use MaliBoot\Dto\Annotation\DataTransferObject;
 
 /**
@@ -28,10 +29,18 @@ class NotificationCmd
      */
     private string $vars = '';
 
+    private string $title;
+
+    private string $content;
+
     /**
      * 邮件附件.
      */
     private string $mailFiles = '';
+
+    private string $appLinkUri;
+
+    private string $appLinkAndroidUriActivity;
 
     /**
      * 发送人标识，如邮箱，手机号，机器人唯一标识.
@@ -165,7 +174,7 @@ class NotificationCmd
         return $result;
     }
 
-    public function getToList(int $type): array
+    public function getToList(#[ExpectedValues([0, 1, 2, 4])] int $type): array
     {
         return match ($type) {
             0 => $this->getArrayByJson($this->getMailTo()),
