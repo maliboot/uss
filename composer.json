@@ -39,7 +39,7 @@
         "maliboot/plugin": "*",
         "maliboot/plugin-code-generator": "*",
         "maliboot/plugin-config": "*",
-        "maliboot/lombok": "dev-master",
+        "maliboot/lombok": "*",
         "maliboot/request": "*",
         "maliboot/response": "*",
         "maliboot/response-wrapper": "*",
