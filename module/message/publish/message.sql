@@ -28,7 +28,6 @@ CREATE TABLE `message`
     `mail_files`        json              DEFAULT NULL COMMENT '邮件附件',
     `sms_sign`          varchar(255)      DEFAULT '' COMMENT '短信签名',
     `sms_template_code` varchar(255)      DEFAULT '' COMMENT '短信模板code号',
-    `app_link_url`      varchar(255) NULL DEFAULT '' COMMENT 'App推送地址',
     `app_link_ext`      json         NULL COMMENT 'App推送可选参数',
     `from`              varchar(255)      DEFAULT '' COMMENT '发送人标识，如邮箱，手机号，机器人唯一标识',
     `from_name`         varchar(255)      DEFAULT '' COMMENT '发送人名称',
