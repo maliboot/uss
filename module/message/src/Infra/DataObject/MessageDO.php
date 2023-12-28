@@ -11,6 +11,7 @@ declare(strict_types=1);
 namespace Uss\Message\Infra\DataObject;
 
 use MaliBoot\Cola\Annotation\Database;
+use MaliBoot\Database\Annotation\Column;
 
 /**
  * 消息推送
@@ -18,170 +19,105 @@ use MaliBoot\Cola\Annotation\Database;
 #[Database(softDeletes: true)]
 class MessageDO
 {
+    #[Column(name: 'id', type: 'int', desc: '')]
     private int $id;
 
-    /**
-     * 唯一识别符（不可重复）.
-     */
+    #[Column(name: 'uniqid', type: 'string', desc: '唯一识别符（不可重复）')]
     private string $uniqid;
 
-    /**
-     * 模板id.
-     */
+    #[Column(name: 'tpl_id', type: 'int', desc: '模板id')]
     private int $tplId;
 
-    /**
-     * 模板分组id.
-     */
+    #[Column(name: 'tpl_group_id', type: 'int', desc: '模板分组id')]
     private int $tplGroupId;
 
-    /**
-     * 类型 0邮件 1阿里云短信  2App推送  4websocket 8钉钉群.
-     */
+    #[Column(name: 'type', type: 'int', desc: '类型0邮件1阿里云短信2App推送4websocket8钉钉群')]
     private int $type;
 
-    /**
-     * 标题.
-     */
+    #[Column(name: 'title', type: 'string', desc: '标题')]
     private string $title;
 
-    /**
-     * 内容.
-     */
+    #[Column(name: 'content', type: 'string', desc: '内容')]
     private string $content;
 
-    /**
-     * 邮件附件.
-     */
+    #[Column(name: 'mail_files', type: 'string', desc: '邮件附件')]
     private string $mailFiles;
 
-    /**
-     * 短信签名.
-     */
+    #[Column(name: 'sms_sign', type: 'string', desc: '短信签名')]
     private string $smsSign;
 
-    /**
-     * 短信模板code编号.
-     */
+    #[Column(name: 'sms_template_code', type: 'string', desc: '短信模板code编号')]
     private string $smsTemplateCode;
 
-    /**
-     * App推送可选参数.
-     */
+    #[Column(name: 'app_link_ext', type: 'string', desc: 'App推送可选参数')]
     private string $appLinkExt;
 
-    /**
-     * 内容变量.
-     */
+    #[Column(name: 'content_vars', type: 'string', desc: '内容变量')]
     private string $contentVars;
 
-    /**
-     * 发送人标识，如邮箱，手机号，机器人唯一标识.
-     */
+    #[Column(name: 'from', type: 'string', desc: '发送人标识，如邮箱，手机号，机器人唯一标识')]
     private string $from;
 
-    /**
-     * 发送人名称.
-     */
+    #[Column(name: 'from_name', type: 'string', desc: '发送人名称')]
     private string $fromName;
 
-    /**
-     * 收信人标识，如邮箱，手机号。一般情况为1个。群发时为多个.
-     */
+    #[Column(name: 'to', type: 'string', desc: '收信人标识，如邮箱，手机号。一般情况为1个。群发时为多个')]
     private string $to;
 
-    /**
-     * 计划发送时间.
-     */
+    #[Column(name: 'post_plan_time', type: 'string', desc: '计划发送时间')]
     private string $postPlanTime;
 
-    /**
-     * 实际发送时间.
-     */
+    #[Column(name: 'post_time', type: 'string', desc: '实际发送时间')]
     private string $postTime;
 
-    /**
-     * 发送状态：0待发送 1已发送 2发送失败.
-     */
+    #[Column(name: 'post_state', type: 'int', desc: '发送状态：0待发送1已发送2发送失败')]
     private int $postState;
 
-    /**
-     * 发送失败错误信息.
-     */
+    #[Column(name: 'post_error', type: 'string', desc: '发送失败错误信息')]
     private string $postError;
 
-    /**
-     * 阅读时间.
-     */
+    #[Column(name: 'read_time', type: 'string', desc: '阅读时间')]
     private string $readTime;
 
-    /**
-     * 请求（客户端）序列号（如回溯日志）。同批次号，一组消息模板发一次消息为一个批次.
-     */
+    #[Column(name: 'request_id', type: 'string', desc: '请求（客户端）序列号（如回溯日志）。同批次号，一组消息模板发一次消息为一个批次')]
     private string $requestId;
 
-    /**
-     * 请求来源（客户端），如项目（模块）名称，业务关键词等….
-     */
+    #[Column(name: 'request_source', type: 'string', desc: '请求来源（客户端），如项目（模块）名称，业务关键词等…')]
     private string $requestSource;
 
-    /**
-     * 扩展字段-业务id，如订单id、商品id，上（下）游客户id，销售库存id、账单id、审批id等…..
-     */
+    #[Column(name: 'biz_id', type: 'int', desc: '扩展字段-业务id，如订单id、商品id，上（下）游客户id，销售库存id、账单id、审批id等…')]
     private int $bizId;
 
-    /**
-     * 扩展字段-业务编号，如验证码、订单号、库存编号、还款编号、审批编号等…..
-     */
+    #[Column(name: 'biz_no', type: 'string', desc: '扩展字段-业务编号，如验证码、订单号、库存编号、还款编号、审批编号等…')]
     private string $bizNo;
 
-    /**
-     * 扩展字段-业务类型，如验证码类型、订单类型、仓库类型、还款类型、审批类型等….
-     */
+    #[Column(name: 'biz_type', type: 'string', desc: '扩展字段-业务类型，如验证码类型、订单类型、仓库类型、还款类型、审批类型等…')]
     private string $bizType;
 
-    /**
-     * 扩展字段-业务其它内容.
-     */
+    #[Column(name: 'biz_ext', type: 'string', desc: '扩展字段-业务其它内容')]
     private string $bizExt;
 
-    /**
-     * 扩展字段-业务回调地址。当消息发送完成（成功OR失败）时触发，回调参数为本表所有字段.
-     */
+    #[Column(name: 'biz_callback_url', type: 'string', desc: '扩展字段-业务回调地址。当消息发送完成（成功OR失败）时触发，回调参数为本表所有字段')]
     private string $bizCallbackUrl;
 
-    /**
-     * 创建人id.
-     */
+    #[Column(name: 'created_id', type: 'int', desc: '创建人id')]
     private int $createdId;
 
-    /**
-     * 创建人名称.
-     */
+    #[Column(name: 'created_name', type: 'string', desc: '创建人名称')]
     private string $createdName;
 
-    /**
-     * 更新人id.
-     */
+    #[Column(name: 'updated_id', type: 'int', desc: '更新人id')]
     private int $updatedId;
 
-    /**
-     * 更新人名称.
-     */
+    #[Column(name: 'updated_name', type: 'string', desc: '更新人名称')]
     private string $updatedName;
 
-    /**
-     * 创建时间.
-     */
+    #[Column(name: 'created_at', type: 'string', desc: '创建时间')]
     private string $createdAt;
 
-    /**
-     * 更新时间.
-     */
+    #[Column(name: 'updated_at', type: 'string', desc: '更新时间')]
     private string $updatedAt;
 
-    /**
-     * 删除时间.
-     */
+    #[Column(name: 'deleted_at', type: 'string', desc: '删除时间')]
     private string $deletedAt;
 }

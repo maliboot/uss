@@ -11,6 +11,7 @@ declare(strict_types=1);
 namespace Uss\Message\Infra\DataObject;
 
 use MaliBoot\Cola\Annotation\Database;
+use MaliBoot\Database\Annotation\Column;
 use Uss\Message\Domain\Model\MessageTplGroup\MessageTpl;
 
 /**
@@ -19,101 +20,64 @@ use Uss\Message\Domain\Model\MessageTplGroup\MessageTpl;
 #[Database(softDeletes: true)]
 class MessageTplDO
 {
+    #[Column(name: 'id', type: 'int', desc: '')]
     private int $id;
 
-    /**
-     * 分组id.
-     */
+    #[Column(name: 'group_id', type: 'int', desc: '分组id')]
     private int $groupId;
 
-    /**
-     * 模板类型 0邮件 1阿里云短信  2App推送  4websocket 8钉钉群.
-     */
+    #[Column(name: 'type', type: 'int', desc: '模板类型0邮件1阿里云短信2App推送4websocket8钉钉群')]
     private int $type;
 
-    /**
-     * 模板标题.
-     */
+    #[Column(name: 'title', type: 'string', desc: '模板标题')]
     private string $title;
 
-    /**
-     * 模板内容.
-     */
+    #[Column(name: 'content', type: 'string', desc: '模板内容')]
     private string $content;
 
-    /**
-     * 内容类型 0text 1html 2markdown.
-     */
+    #[Column(name: 'content_type', type: 'int', desc: '内容类型0text1html2markdown')]
     private int $contentType;
 
-    /**
-     * App推送-跳转页面链接id，type=2时必填.
-     */
+    #[Column(name: 'app_link_id', type: 'int', desc: 'App推送-跳转页面链接id，type=2时必填')]
     private int $appLinkId;
 
-    /**
-     * 服务配置id，如机器人服务配置、邮件服务配置等….
-     */
+    #[Column(name: 'server_id', type: 'int', desc: '服务配置id，如机器人服务配置、邮件服务配置等…')]
     private int $serverId;
 
-    /**
-     * 短信模板配置id，短信时时必填.
-     */
+    #[Column(name: 'sms_template_id', type: 'int', desc: '短信模板配置id，短信时时必填')]
     private int $smsTemplateId;
 
-    /**
-     * 推送手机，type=1、2、8时必填.
-     */
+    #[Column(name: 'phones', type: 'string', desc: '推送手机，type=1、2、8时必填')]
     private string $phones;
 
-    /**
-     * 推送邮箱，type=0时必填.
-     */
+    #[Column(name: 'emails', type: 'string', desc: '推送邮箱，type=0时必填')]
     private string $emails;
 
-    /**
-     * 模板状态 0不启用 1启用.
-     */
+    #[Column(name: 'status', type: 'int', desc: '模板状态0不启用1启用')]
     private int $status;
 
-    /**
-     * 订阅消费话题，type=4、mqtt等时必填.
-     */
+    #[Column(name: 'topic', type: 'string', desc: '订阅消费话题，type=4、mqtt等时必填')]
     private string $topic;
 
-    /**
-     * 创建人id.
-     */
+    #[Column(name: 'created_id', type: 'int', desc: '创建人id')]
     private int $createdId;
 
-    /**
-     * 创建人名称.
-     */
+    #[Column(name: 'created_name', type: 'string', desc: '创建人名称')]
     private string $createdName;
 
-    /**
-     * 更新人id.
-     */
+    #[Column(name: 'updated_id', type: 'int', desc: '更新人id')]
     private int $updatedId;
 
-    /**
-     * 更新人名称.
-     */
+    #[Column(name: 'updated_name', type: 'string', desc: '更新人名称')]
     private string $updatedName;
 
-    /**
-     * 创建时间.
-     */
+    #[Column(name: 'created_at', type: 'string', desc: '创建时间')]
     private string $createdAt;
 
-    /**
-     * 更新时间.
-     */
+    #[Column(name: 'updated_at', type: 'string', desc: '更新时间')]
     private string $updatedAt;
 
-    /**
-     * 删除时间.
-     */
+    #[Column(name: 'deleted_at', type: 'string', desc: '删除时间')]
     private string $deletedAt;
 
     protected function getEntityFQN(): ?string

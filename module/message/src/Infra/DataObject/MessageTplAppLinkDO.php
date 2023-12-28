@@ -11,6 +11,7 @@ declare(strict_types=1);
 namespace Uss\Message\Infra\DataObject;
 
 use MaliBoot\Cola\Annotation\Database;
+use MaliBoot\Database\Annotation\Column;
 
 /**
  * 消息模板-app推送-页面跳转链接.
@@ -18,75 +19,48 @@ use MaliBoot\Cola\Annotation\Database;
 #[Database(softDeletes: true)]
 class MessageTplAppLinkDO
 {
+    #[Column(name: 'id', type: 'int', desc: '')]
     private int $id;
 
-    /**
-     * 服务id.
-     */
+    #[Column(name: 'server_id', type: 'int', desc: '服务id')]
     private int $serverId;
 
-    /**
-     * 名称.
-     */
+    #[Column(name: 'name', type: 'string', desc: '名称')]
     private string $name;
 
-    /**
-     * 描述.
-     */
+    #[Column(name: 'description', type: 'string', desc: '描述')]
     private string $description;
 
-    /**
-     * 链接.
-     */
+    #[Column(name: 'uri', type: 'string', desc: '链接')]
     private string $uri;
 
-    /**
-     * Android专用跳转参数，如极光推送时为uri_activity=xxxx.
-     */
+    #[Column(name: 'android_uri_activity', type: 'string', desc: 'Android专用跳转参数，如极光推送时为uri_activity=xxxx')]
     private string $androidUriActivity;
 
-    /**
-     * 铃声.
-     */
+    #[Column(name: 'sound', type: 'string', desc: '铃声')]
     private string $sound;
 
-    /**
-     * 状态 0不启用 1启用.
-     */
+    #[Column(name: 'status', type: 'int', desc: '状态0不启用1启用')]
     private int $status;
 
-    /**
-     * 创建人id.
-     */
+    #[Column(name: 'created_id', type: 'int', desc: '创建人id')]
     private int $createdId;
 
-    /**
-     * 创建人名称.
-     */
+    #[Column(name: 'created_name', type: 'string', desc: '创建人名称')]
     private string $createdName;
 
-    /**
-     * 更新人id.
-     */
+    #[Column(name: 'updated_id', type: 'int', desc: '更新人id')]
     private int $updatedId;
 
-    /**
-     * 更新人名称.
-     */
+    #[Column(name: 'updated_name', type: 'string', desc: '更新人名称')]
     private string $updatedName;
 
-    /**
-     * 创建时间.
-     */
+    #[Column(name: 'created_at', type: 'string', desc: '创建时间')]
     private string $createdAt;
 
-    /**
-     * 更新时间.
-     */
+    #[Column(name: 'updated_at', type: 'string', desc: '更新时间')]
     private string $updatedAt;
 
-    /**
-     * 删除时间.
-     */
+    #[Column(name: 'deleted_at', type: 'string', desc: '删除时间')]
     private string $deletedAt;
 }

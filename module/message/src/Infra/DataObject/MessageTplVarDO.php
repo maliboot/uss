@@ -11,6 +11,7 @@ declare(strict_types=1);
 namespace Uss\Message\Infra\DataObject;
 
 use MaliBoot\Cola\Annotation\Database;
+use MaliBoot\Database\Annotation\Column;
 
 /**
  * 消息模板-变量.
@@ -18,80 +19,51 @@ use MaliBoot\Cola\Annotation\Database;
 #[Database(softDeletes: true)]
 class MessageTplVarDO
 {
+    #[Column(name: 'id', type: 'int', desc: '')]
     private int $id;
 
-    /**
-     * 分组id.
-     */
+    #[Column(name: 'group_id', type: 'int', desc: '分组id')]
     private int $groupId;
 
-    /**
-     * 唯一识别符（不可重复）.
-     */
+    #[Column(name: 'uniqid', type: 'string', desc: '唯一识别符（不可重复）')]
     private string $uniqid;
 
-    /**
-     * 变量类型，0字符串 1list 2map.
-     */
+    #[Column(name: 'type', type: 'int', desc: '变量类型，0字符串1list2map')]
     private int $type;
 
-    /**
-     * 变量名，模板变量替换时使用.
-     */
+    #[Column(name: 'name', type: 'string', desc: '变量名，模板变量替换时使用')]
     private string $name;
 
-    /**
-     * 变量label.
-     */
+    #[Column(name: 'label', type: 'string', desc: '变量label')]
     private string $label;
 
-    /**
-     * 描述.
-     */
+    #[Column(name: 'description', type: 'string', desc: '描述')]
     private string $description;
 
-    /**
-     * 状态 0不启用 1启用.
-     */
+    #[Column(name: 'status', type: 'int', desc: '状态0不启用1启用')]
     private int $status;
 
-    /**
-     * 使用例子，尤其当type=list、map时，应该给出示例说明规范.
-     */
+    #[Column(name: 'sample', type: 'string', desc: '使用例子，尤其当type=list、map时，应该给出示例说明规范')]
     private string $sample;
 
-    /**
-     * 创建人id.
-     */
+    #[Column(name: 'created_id', type: 'int', desc: '创建人id')]
     private int $createdId;
 
-    /**
-     * 创建人名称.
-     */
+    #[Column(name: 'created_name', type: 'string', desc: '创建人名称')]
     private string $createdName;
 
-    /**
-     * 更新人id.
-     */
+    #[Column(name: 'updated_id', type: 'int', desc: '更新人id')]
     private int $updatedId;
 
-    /**
-     * 更新人名称.
-     */
+    #[Column(name: 'updated_name', type: 'string', desc: '更新人名称')]
     private string $updatedName;
 
-    /**
-     * 创建时间.
-     */
+    #[Column(name: 'created_at', type: 'string', desc: '创建时间')]
     private string $createdAt;
 
-    /**
-     * 更新时间.
-     */
+    #[Column(name: 'updated_at', type: 'string', desc: '更新时间')]
     private string $updatedAt;
 
-    /**
-     * 删除时间.
-     */
+    #[Column(name: 'deleted_at', type: 'string', desc: '删除时间')]
     private string $deletedAt;
 }

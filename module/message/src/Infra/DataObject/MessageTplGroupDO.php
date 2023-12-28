@@ -11,6 +11,7 @@ declare(strict_types=1);
 namespace Uss\Message\Infra\DataObject;
 
 use MaliBoot\Cola\Annotation\Database;
+use MaliBoot\Database\Annotation\Column;
 
 /**
  * 消息模板-分组.
@@ -18,55 +19,36 @@ use MaliBoot\Cola\Annotation\Database;
 #[Database(softDeletes: true)]
 class MessageTplGroupDO
 {
+    #[Column(name: 'id', type: 'int', desc: '')]
     private int $id;
 
-    /**
-     * 唯一识别符（不可重复）.
-     */
+    #[Column(name: 'uniqid', type: 'string', desc: '唯一识别符（不可重复）')]
     private string $uniqid;
 
-    /**
-     * 名称.
-     */
+    #[Column(name: 'name', type: 'string', desc: '名称')]
     private string $name;
 
-    /**
-     * 描述.
-     */
+    #[Column(name: 'description', type: 'string', desc: '描述')]
     private string $description;
 
-    /**
-     * 创建人id.
-     */
+    #[Column(name: 'created_id', type: 'int', desc: '创建人id')]
     private int $createdId;
 
-    /**
-     * 创建人名称.
-     */
+    #[Column(name: 'created_name', type: 'string', desc: '创建人名称')]
     private string $createdName;
 
-    /**
-     * 更新人id.
-     */
+    #[Column(name: 'updated_id', type: 'int', desc: '更新人id')]
     private int $updatedId;
 
-    /**
-     * 更新人名称.
-     */
+    #[Column(name: 'updated_name', type: 'string', desc: '更新人名称')]
     private string $updatedName;
 
-    /**
-     * 创建时间.
-     */
+    #[Column(name: 'created_at', type: 'string', desc: '创建时间')]
     private string $createdAt;
 
-    /**
-     * 更新时间.
-     */
+    #[Column(name: 'updated_at', type: 'string', desc: '更新时间')]
     private string $updatedAt;
 
-    /**
-     * 删除时间.
-     */
+    #[Column(name: 'deleted_at', type: 'string', desc: '删除时间')]
     private string $deletedAt;
 }

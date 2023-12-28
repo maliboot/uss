@@ -11,6 +11,7 @@ declare(strict_types=1);
 namespace Uss\Message\Infra\DataObject;
 
 use MaliBoot\Cola\Annotation\Database;
+use MaliBoot\Database\Annotation\Column;
 
 /**
  * 消息模板-服务配置，如机器人、邮件发件人等….
@@ -18,90 +19,57 @@ use MaliBoot\Cola\Annotation\Database;
 #[Database(softDeletes: true)]
 class MessageTplServerDO
 {
+    #[Column(name: 'id', type: 'int', desc: '')]
     private int $id;
 
-    /**
-     * 唯一识别符（不可重复）.
-     */
+    #[Column(name: 'uniqid', type: 'string', desc: '唯一识别符（不可重复）')]
     private string $uniqid;
 
-    /**
-     * 类型 0邮件 1阿里云短信  2App推送  4websocket 8钉钉群.
-     */
+    #[Column(name: 'type', type: 'int', desc: '类型0邮件1阿里云短信2App推送4websocket8钉钉群')]
     private int $type;
 
-    /**
-     * 名称.
-     */
+    #[Column(name: 'name', type: 'string', desc: '名称')]
     private string $name;
 
-    /**
-     * 描述.
-     */
+    #[Column(name: 'description', type: 'string', desc: '描述')]
     private string $description;
 
-    /**
-     * 钉钉推送地址.
-     */
+    #[Column(name: 'dd_webhook', type: 'string', desc: '钉钉推送地址')]
     private string $ddWebhook;
 
-    /**
-     * 钉钉密钥.
-     */
+    #[Column(name: 'dd_secret', type: 'string', desc: '钉钉密钥')]
     private string $ddSecret;
 
-    /**
-     * 邮件DSN，格式如smtp://user:pass@smtp.example.com:port.
-     */
+    #[Column(name: 'mail_dsn', type: 'string', desc: '邮件DSN，格式如smtp:user:pass@smtp.example.com:port')]
     private string $mailDsn;
 
-    /**
-     * 邮件地址.
-     */
+    #[Column(name: 'mail_address', type: 'string', desc: '邮件地址')]
     private string $mailAddress;
 
-    /**
-     * 通用keyId.
-     */
+    #[Column(name: 'app_key', type: 'string', desc: '通用keyId')]
     private string $appKey;
 
-    /**
-     * 通用keySecret.
-     */
+    #[Column(name: 'app_secret', type: 'string', desc: '通用keySecret')]
     private string $appSecret;
 
-    /**
-     * 创建人id.
-     */
+    #[Column(name: 'created_id', type: 'int', desc: '创建人id')]
     private int $createdId;
 
-    /**
-     * 创建人名称.
-     */
+    #[Column(name: 'created_name', type: 'string', desc: '创建人名称')]
     private string $createdName;
 
-    /**
-     * 更新人id.
-     */
+    #[Column(name: 'updated_id', type: 'int', desc: '更新人id')]
     private int $updatedId;
 
-    /**
-     * 更新人名称.
-     */
+    #[Column(name: 'updated_name', type: 'string', desc: '更新人名称')]
     private string $updatedName;
 
-    /**
-     * 创建时间.
-     */
+    #[Column(name: 'created_at', type: 'string', desc: '创建时间')]
     private string $createdAt;
 
-    /**
-     * 更新时间.
-     */
+    #[Column(name: 'updated_at', type: 'string', desc: '更新时间')]
     private string $updatedAt;
 
-    /**
-     * 删除时间.
-     */
+    #[Column(name: 'deleted_at', type: 'string', desc: '删除时间')]
     private string $deletedAt;
 }

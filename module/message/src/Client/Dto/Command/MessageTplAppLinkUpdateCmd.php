@@ -11,6 +11,7 @@ declare(strict_types=1);
 namespace Uss\Message\Client\Dto\Command;
 
 use MaliBoot\Dto\Annotation\DataTransferObject;
+use MaliBoot\Lombok\Annotation\Field;
 
 /**
  * MessageTplAppLinkUpdateCmd.
@@ -18,70 +19,45 @@ use MaliBoot\Dto\Annotation\DataTransferObject;
 #[DataTransferObject(name: 'MessageTplAppLink', type: 'command')]
 class MessageTplAppLinkUpdateCmd
 {
+    #[Field(name: 'id', type: 'int', desc: '')]
     private int $id;
 
-    /**
-     * 名称.
-     */
+    #[Field(name: 'name', type: 'string', desc: '名称')]
     private string $name;
 
-    /**
-     * 描述.
-     */
+    #[Field(name: 'description', type: 'string', desc: '描述')]
     private string $description;
 
-    /**
-     * 链接.
-     */
+    #[Field(name: 'link', type: 'string', desc: '链接')]
     private string $link;
 
-    /**
-     * Andorid专用跳转参数，如极光推送时为uri_activity=xxxx.
-     */
+    #[Field(name: 'androidUriActivity', type: 'string', desc: 'Andorid专用跳转参数，如极光推送时为uri_activity=xxxx')]
     private string $androidUriActivity;
 
-    /**
-     * 铃声.
-     */
+    #[Field(name: 'sound', type: 'string', desc: '铃声')]
     private string $sound;
 
-    /**
-     * 状态 0不启用 1启用.
-     */
+    #[Field(name: 'status', type: 'int', desc: '状态0不启用1启用')]
     private int $status;
 
-    /**
-     * 创建人id.
-     */
+    #[Field(name: 'createdId', type: 'int', desc: '创建人id')]
     private int $createdId;
 
-    /**
-     * 创建人名称.
-     */
+    #[Field(name: 'createdName', type: 'string', desc: '创建人名称')]
     private string $createdName;
 
-    /**
-     * 更新人id.
-     */
+    #[Field(name: 'updatedId', type: 'int', desc: '更新人id')]
     private int $updatedId;
 
-    /**
-     * 更新人名称.
-     */
+    #[Field(name: 'updatedName', type: 'string', desc: '更新人名称')]
     private string $updatedName;
 
-    /**
-     * 创建时间.
-     */
+    #[Field(name: 'createdAt', type: 'string', desc: '创建时间')]
     private string $createdAt;
 
-    /**
-     * 更新时间.
-     */
+    #[Field(name: 'updatedAt', type: 'string', desc: '更新时间')]
     private string $updatedAt;
 
-    /**
-     * 删除时间.
-     */
+    #[Field(name: 'deletedAt', type: 'string', desc: '删除时间')]
     private string $deletedAt;
 }

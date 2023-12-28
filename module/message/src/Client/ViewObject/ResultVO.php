@@ -11,22 +11,17 @@ declare(strict_types=1);
 namespace Uss\Message\Client\ViewObject;
 
 use MaliBoot\Dto\Annotation\ViewObject;
+use MaliBoot\Lombok\Annotation\Field;
 
 #[ViewObject(name: 'result')]
 class ResultVO
 {
-    /**
-     * result.
-     */
+    #[Field(name: 'result', type: 'bool', desc: 'result')]
     private bool $result = false;
 
-    /**
-     * msg.
-     */
+    #[Field(name: 'msg', type: 'string', desc: 'msg')]
     private string $msg = '';
 
-    /**
-     * requestId.
-     */
+    #[Field(name: 'requestId', type: 'string', desc: 'requestId')]
     private string $requestId = '';
 }

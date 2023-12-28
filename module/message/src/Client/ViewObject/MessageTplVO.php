@@ -11,6 +11,7 @@ declare(strict_types=1);
 namespace Uss\Message\Client\ViewObject;
 
 use MaliBoot\Dto\Annotation\ViewObject;
+use MaliBoot\Lombok\Annotation\Field;
 
 /**
  * MessageTplVO.
@@ -18,90 +19,57 @@ use MaliBoot\Dto\Annotation\ViewObject;
 #[ViewObject(name: 'MessageTpl')]
 class MessageTplVO
 {
+    #[Field(name: 'id', type: 'int', desc: '')]
     private int $id;
 
-    /**
-     * 分组id.
-     */
+    #[Field(name: 'groupId', type: 'int', desc: '分组id')]
     private int $groupId;
 
-    /**
-     * 模板类型 0邮件 1阿里云短信  2App推送  4websocket 8钉钉群.
-     */
+    #[Field(name: 'type', type: 'int', desc: '模板类型0邮件1阿里云短信2App推送4websocket8钉钉群')]
     private int $type;
 
-    /**
-     * 模板标题.
-     */
+    #[Field(name: 'title', type: 'string', desc: '模板标题')]
     private string $title;
 
-    /**
-     * 模板内容.
-     */
+    #[Field(name: 'content', type: 'string', desc: '模板内容')]
     private string $content;
 
-    /**
-     * 内容类型 0text 1html 2markdown.
-     */
+    #[Field(name: 'contentType', type: 'int', desc: '内容类型0text1html2markdown')]
     private int $contentType;
 
-    /**
-     * App推送-跳转页面链接id，type=2时必填.
-     */
+    #[Field(name: 'appLinkId', type: 'int', desc: 'App推送-跳转页面链接id，type=2时必填')]
     private int $appLinkId;
 
-    /**
-     * 服务配置id，如机器人服务配置、邮件服务配置等….
-     */
+    #[Field(name: 'serverId', type: 'int', desc: '服务配置id，如机器人服务配置、邮件服务配置等…')]
     private int $serverId;
 
-    /**
-     * 推送手机，type=1、2、8时必填.
-     */
+    #[Field(name: 'phones', type: 'string', desc: '推送手机，type=1、2、8时必填')]
     private string $phones;
 
-    /**
-     * 推送邮箱，type=0时必填.
-     */
+    #[Field(name: 'emails', type: 'string', desc: '推送邮箱，type=0时必填')]
     private string $emails;
 
-    /**
-     * 模板状态 0不启用 1启用.
-     */
+    #[Field(name: 'status', type: 'int', desc: '模板状态0不启用1启用')]
     private int $status;
 
-    /**
-     * 创建人id.
-     */
+    #[Field(name: 'createdId', type: 'int', desc: '创建人id')]
     private int $createdId;
 
-    /**
-     * 创建人名称.
-     */
+    #[Field(name: 'createdName', type: 'string', desc: '创建人名称')]
     private string $createdName;
 
-    /**
-     * 更新人id.
-     */
+    #[Field(name: 'updatedId', type: 'int', desc: '更新人id')]
     private int $updatedId;
 
-    /**
-     * 更新人名称.
-     */
+    #[Field(name: 'updatedName', type: 'string', desc: '更新人名称')]
     private string $updatedName;
 
-    /**
-     * 创建时间.
-     */
+    #[Field(name: 'createdAt', type: 'string', desc: '创建时间')]
     private string $createdAt;
 
-    /**
-     * 更新时间.
-     */
+    #[Field(name: 'updatedAt', type: 'string', desc: '更新时间')]
     private string $updatedAt;
 
-    /**
-     * 删除时间.
-     */
+    #[Field(name: 'deletedAt', type: 'string', desc: '删除时间')]
     private string $deletedAt;
 }
