@@ -42,4 +42,24 @@ class NotificationTest extends TestCase
         }
         $this->assertTrue(true);
     }
+
+    public function testDingDingPush()
+    {
+        try {
+            \Hyperf\Support\make(NotificationCmdExe::class)->execute(NotificationCmd::of([
+                'tplGroupUniqid' => 'tg66962498dc7a9',
+                'requestId' => md5((string) time()),
+                'requestSource' => 'testUnit',
+                'appPushTo' => json_encode(['13131067597']),
+                'title' => 'xxxx',
+                'content' => 'yyyy',
+                'bizExt' => json_encode([
+                    'orderId' => 10702,
+                ]),
+            ]));
+        } catch (Exception $e) {
+            $this->fail($e->getMessage());
+        }
+        $this->assertTrue(true);
+    }
 }
