@@ -14,21 +14,13 @@ use AlibabaCloud\SDK\Dingtalk\Voauth2_1_0\Dingtalk as AlibabaDingTalk;
 use AlibabaCloud\SDK\Dingtalk\Voauth2_1_0\Models\GetAccessTokenRequest;
 use Darabonba\OpenApi\Models\Config;
 use Exception;
-use Hyperf\Context\ApplicationContext;
-use Hyperf\Contract\ContainerInterface;
-use Hyperf\Guzzle\ClientFactory;
+use GuzzleHttp\Client;
 use Hyperf\Logger\LoggerFactory;
-use Hyperf\Redis\Redis;
-use MaliBoot\Di\Annotation\Inject;
 use Uss\Message\Infra\MessageSender\Annotation\MessageSender;
 
 #[MessageSender(messageType: 8)]
 class DingDingPushSender extends AbstractMessageSender
 {
-
-    #[Inject]
-    public ClientFactory $clientFactory;
-
     /**
      * @var string
      */
@@ -60,11 +52,6 @@ class DingDingPushSender extends AbstractMessageSender
     private int $serverId;
 
     /**
-     * @var ContainerInterface
-     */
-    private ContainerInterface $container;
-
-    /**
      * @var string ...
      */
     private string $oapiUrl = 'https://oapi.dingtalk.com/topapi';
@@ -84,7 +71,8 @@ class DingDingPushSender extends AbstractMessageSender
         $title = $this->msgParams['title'] ?? '';
         $content = $this->msgParams['content'] ?? '';
 
-        $logger = $this->container->get(LoggerFactory::class)->get(static::class);
+        $container = \Hyperf\Context\ApplicationContext::getContainer();
+        $logger = $container->get(LoggerFactory::class)->get(static::class);
 
         //获取内容
         $sendContent = $this->getContent($title, $content);
@@ -102,7 +90,7 @@ class DingDingPushSender extends AbstractMessageSender
 
             $sendMessageApi = $this->oapiUrl . '/message/corpconversation/asyncsend_v2?access_token=' . $this->accessToken;
 
-            $client = $this->clientFactory->create();
+            $client = new Client();
 
             $res = $client->post($sendMessageApi, [
                 'headers' => [
@@ -118,11 +106,14 @@ class DingDingPushSender extends AbstractMessageSender
 
             $content = $res->getBody()->getContents();
             $response = json_decode($content, true);
+            var_dump($response);die;
             if ($response['errcode'] != 0) {
                 $logger->error('发送钉钉通知失败', ['response' => $response]);
             }
             return true;
         }catch (\Exception $exception){
+            var_dump($exception->getMessage());
+            var_dump($exception->getTraceAsString());die;
             throw new Exception(sprintf('发送钉钉通知异常:[%s], RAW:[%s]', $exception?->getMessage(), $exception->getTraceAsString()));
         }
         return true;
@@ -169,7 +160,8 @@ class DingDingPushSender extends AbstractMessageSender
      */
     protected function getAccessToken(): void
     {
-        $redis = ApplicationContext::getContainer()->get(Redis::class);
+        $container = \Hyperf\Context\ApplicationContext::getContainer();
+        $redis = $container->get('redis');
         $redis->select(env('REDIS_DB', 3));
         $redisKey = 'dingding_accessToken_'.$this->serverId;
         $this->accessToken = $redis->get($redisKey);
@@ -203,7 +195,7 @@ class DingDingPushSender extends AbstractMessageSender
     {
         $sendMessageApi = $this->oapiUrl . '/v2/user/getbymobile?access_token=' . $this->accessToken;
 
-        $client = $this->clientFactory->create();
+        $client = new Client();
         $res = $client->post($sendMessageApi, [
             'headers' => [
                 'Content-Type' => 'application/json; charset=utf-8',
@@ -219,5 +211,4 @@ class DingDingPushSender extends AbstractMessageSender
         }
         return $response['result'] ?? [];
     }
-
 }
