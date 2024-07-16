@@ -106,14 +106,11 @@ class DingDingPushSender extends AbstractMessageSender
 
             $content = $res->getBody()->getContents();
             $response = json_decode($content, true);
-            var_dump($response);die;
             if ($response['errcode'] != 0) {
                 $logger->error('发送钉钉通知失败', ['response' => $response]);
             }
             return true;
         }catch (\Exception $exception){
-            var_dump($exception->getMessage());
-            var_dump($exception->getTraceAsString());die;
             throw new Exception(sprintf('发送钉钉通知异常:[%s], RAW:[%s]', $exception?->getMessage(), $exception->getTraceAsString()));
         }
         return true;
@@ -161,12 +158,13 @@ class DingDingPushSender extends AbstractMessageSender
     protected function getAccessToken(): void
     {
         $container = \Hyperf\Context\ApplicationContext::getContainer();
-        $redis = $container->get('redis');
-        $redis->select(env('REDIS_DB', 3));
+        $redis = $container->get(\Hyperf\Redis\Redis::class);
+        $redis->select(intval(env('REDIS_DB', 3)));
         $redisKey = 'dingding_accessToken_'.$this->serverId;
-        $this->accessToken = $redis->get($redisKey);
-        if ($this->accessToken) {
-            return;
+        $accessToken = $redis->get($redisKey);
+        if ($accessToken) {
+             $this->accessToken = $accessToken;
+             return;
         }
 
         $config           = new Config([]);
