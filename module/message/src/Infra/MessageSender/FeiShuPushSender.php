@@ -87,12 +87,11 @@ class FeiShuPushSender extends AbstractMessageSender
             if (empty($phones)) {
                 return false;
             }
-            $userIds        = $this->getUserIdListByPhone($phones);
-
-            if (empty($userIds)) {
+            $userList        = $this->getUserIdListByPhone($phones);
+            if (empty($userList)) {
                 return false;
             }
-
+            $userIds = array_column($userList, 'user_id');
             $client = new Client();
             $res = $client->post($this->sendMessageUrl.'?receive_id_type=user_id', [
                 'headers' => [
@@ -100,22 +99,20 @@ class FeiShuPushSender extends AbstractMessageSender
                     'Authorization' => 'Bearer '.$this->accessToken,
                 ],
                 'json' => [
-                    'msg_type' => 'post',
-                    'user_ids' => $userIds,
-                    'content' => $content,
+                    "msg_type" => "post",
+                    "open_ids" => $userIds,
+                    "content" => $sendContent,
                 ],
             ]);
 
             $content = $res->getBody()->getContents();
             $response = json_decode($content, true);
-            if ($response['errcode'] != 0) {
-                $logger->error('发送钉钉通知失败', ['response' => $response]);
+            if ($response['code'] != 0) {
+                $logger->error('发送飞书通知失败', ['response' => $response]);
             }
-
-
             return true;
         }catch (\Exception $exception){
-            throw new Exception(sprintf('发送钉钉通知异常:[%s], RAW:[%s]', $exception?->getMessage(), $exception->getTraceAsString()));
+            throw new Exception(sprintf('发送飞书通知异常:[%s], RAW:[%s]', $exception?->getMessage(), $exception->getTraceAsString()));
         }
         return true;
     }
@@ -129,14 +126,13 @@ class FeiShuPushSender extends AbstractMessageSender
     public function getUserIdListByPhone(array $phones): array
     {
         $client = new Client();
-
         $res = $client->post($this->getUserIdUrl, [
             'headers' => [
                 'Content-Type' => 'application/json; charset=utf-8',
                 'Authorization' => 'Bearer '.$this->accessToken
             ],
             'json' => [
-                'mobiles' => json_encode($phones),
+                'mobiles' => $phones,
             ],
         ]);
 
@@ -145,7 +141,10 @@ class FeiShuPushSender extends AbstractMessageSender
         $userIds = [];
         if($response['code'] == 0){
             foreach ($response['data']['user_list'] as $v){
-                $userIds[] = $v['user_id'];
+                $userIds[] = [
+                    'user_id' => $v['user_id'],
+                    'mobile' => $v['mobile']
+                ];
             }
         }
         return $userIds;
@@ -160,19 +159,20 @@ class FeiShuPushSender extends AbstractMessageSender
     protected function getContent(string $title, string $text)
     {
         $feiShuMsg = [
-            'post' => [
-                'zh_cn'  => [
-                    'title' => $title,
-                    'content' => [
-                        [
-                            'tag' => 'text',
-                            'text' => $text,
-                            'style' => [],
-                        ]
-                    ],
+                "post" => [
+                    "zh_cn"  => [
+                        "title" => $title,
+                        "content" => [
+                            [
+                                [
+                                    "tag" => "text",
+                                    "text" => $text,
+                                    "style" => '',
+                                ]
+                            ]
+                        ],
+                    ]
                 ]
-            ]
-
         ];
         return $feiShuMsg;
     }
@@ -187,6 +187,7 @@ class FeiShuPushSender extends AbstractMessageSender
         $redis->select(intval(env('REDIS_DB', 3)));
         $redisKey = 'feishu_accessToken_'.$this->serverId;
         $accessToken = $redis->get($redisKey);
+
         if ($accessToken) {
              $this->accessToken = $accessToken;
              return;
@@ -206,36 +207,9 @@ class FeiShuPushSender extends AbstractMessageSender
         $content = $res->getBody()->getContents();
         $response = json_decode($content, true);
         if ($response['code'] == 0) {
+            $this->accessToken = $response['tenant_access_token'];
             $redis->set($redisKey, $response['tenant_access_token'], $response['expire']);
         }
         return;
-    }
-
-    /**
-     * 根据手机号获取用户信息.
-     *
-     * @param string $phone ...
-     *
-     * @return array ...
-     */
-    public function getUserByPhone(string $phone): array
-    {
-        $sendMessageApi = $this->oapiUrl . '/v2/user/getbymobile?access_token=' . $this->accessToken;
-
-        $client = new Client();
-        $res = $client->post($sendMessageApi, [
-            'headers' => [
-                'Content-Type' => 'application/json; charset=utf-8',
-            ],
-            'json' => ['mobile' => $phone],
-        ]);
-
-        $content = $res->getBody()->getContents();
-        $response = json_decode($content, true);
-
-        if ($response['errcode'] != 0) {
-            return [];
-        }
-        return $response['result'] ?? [];
     }
 }

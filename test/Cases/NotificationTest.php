@@ -70,7 +70,7 @@ class NotificationTest extends TestCase
                 'tplGroupUniqid' => 'tg6696371b010bc',
                 'requestId' => md5((string) time()),
                 'requestSource' => 'testUnit',
-                'dingDingTo' => json_encode(['13131067597']),
+                'feiShuTo' => json_encode(['13131067597']),
                 'title' => 'xxxx',
                 'content' => 'yyyy',
                 'bizExt' => json_encode([
