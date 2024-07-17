@@ -40,6 +40,12 @@ class MessageTplServerDO
     #[Column(name: 'dd_secret', type: 'string', desc: '钉钉密钥')]
     private string $ddSecret;
 
+    #[Column(name: 'dd_cor_pid', type: 'string', desc: '钉钉cor_pid')]
+    private string $ddCorPid;
+
+    #[Column(name: 'dd_agent_id', type: 'string', desc: '钉钉agent_id')]
+    private string $ddAgentId;
+
     #[Column(name: 'mail_dsn', type: 'string', desc: '邮件DSN，格式如smtp:user:pass@smtp.example.com:port')]
     private string $mailDsn;
 

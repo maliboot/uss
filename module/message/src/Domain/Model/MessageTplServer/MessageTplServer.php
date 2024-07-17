@@ -40,6 +40,12 @@ class MessageTplServer
     #[Field(name: 'ddSecret', type: 'string', desc: '钉钉密钥')]
     private string $ddSecret;
 
+    #[Field(name: 'ddCorPid', type: 'string', desc: '钉钉cor_pid')]
+    private string $ddCorPid;
+
+    #[Field(name: 'ddAgentId', type: 'string', desc: '钉钉agent_id')]
+    private string $ddAgentId;
+
     #[Field(name: 'mailDsn', type: 'string', desc: '邮件DSN，格式如smtp:user:pass@smtp.example.com:port')]
     private string $mailDsn;
 
