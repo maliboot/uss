@@ -52,7 +52,6 @@ abstract class DingDingBasePushSender extends AbstractMessageSender
         protected array $msgParams,
     )
     {
-        parent::__construct($msgUniqid, $msgParams);
         $this->appKey = $this->msgParams['server']['appKey'] ?? '';
         $this->appSecret = $this->msgParams['server']['appSecret'] ?? '';
         $this->corPid = $this->msgParams['server']['ddCorPid'] ?? '';
