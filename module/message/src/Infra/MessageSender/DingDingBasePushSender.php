@@ -7,6 +7,7 @@ use Darabonba\OpenApi\Models\Config;
 use GuzzleHttp\Client;
 use Hyperf\Cache\Cache;
 use Hyperf\Guzzle\ClientFactory;
+use Hyperf\Logger\LoggerFactory;
 use MaliBoot\Di\Annotation\Inject;
 
 abstract class DingDingBasePushSender extends AbstractMessageSender
@@ -46,8 +47,19 @@ abstract class DingDingBasePushSender extends AbstractMessageSender
      */
     protected int $serverId;
 
-    #[Inject]
-    protected ClientFactory $clientFactory;
+    public function __construct(
+        private string $msgUniqid,
+        protected array $msgParams,
+    )
+    {
+        parent::__construct($msgUniqid, $msgParams);
+        $this->appKey = $this->msgParams['server']['appKey'] ?? '';
+        $this->appSecret = $this->msgParams['server']['appSecret'] ?? '';
+        $this->corPid = $this->msgParams['server']['ddCorPid'] ?? '';
+        $this->agentId = $this->msgParams['server']['ddAgentId'] ?? '';
+        $this->serverId = intval($this->msgParams['server']['id'] ?? 0);
+        $this->initAccessToken();
+    }
 
     /**
      * 获取用户userIds.
@@ -86,9 +98,13 @@ abstract class DingDingBasePushSender extends AbstractMessageSender
     }
 
     /**
-     * 获取AccessToken.
+     * 初始化AccessToken
+     * @return void
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
+     * @throws \Psr\SimpleCache\InvalidArgumentException
      */
-    protected function getAccessToken(): void
+    protected function initAccessToken(): void
     {
         $container = \Hyperf\Context\ApplicationContext::getContainer();
         $cache = $container->get(Cache::class);
@@ -102,7 +118,6 @@ abstract class DingDingBasePushSender extends AbstractMessageSender
         $config           = new Config([]);
         $config->protocol = 'https';
         $config->regionId = 'central';
-
         $accessTokenResponse = (new AlibabaDingTalk($config))->getAccessToken((new GetAccessTokenRequest([
             'appKey'    => $this->appKey,
             'appSecret' => $this->appSecret,
@@ -112,32 +127,78 @@ abstract class DingDingBasePushSender extends AbstractMessageSender
             $this->accessToken = $accessTokenResponse->body->accessToken;
             $cache->set($cacheKey, $accessTokenResponse->body->accessToken, $accessTokenResponse->body->expireIn);
         }
+        return;
     }
 
     /**
      * 根据手机号获取用户信息.
-     *
-     * @param string $phone ...
-     *
-     * @return array ...
+     * @param string $phone
+     * @return array
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
      */
     protected function getUserByPhone(string $phone): array
     {
-        $sendMessageApi = $this->oapiUrl . '/v2/user/getbymobile?access_token=' . $this->accessToken;
-        $client = $this->clientFactory->create();
-        $res = $client->post($sendMessageApi, [
+        $sendMessageApi = $this->oapiUrl . '/v2/user/getbymobile';
+        $result = $this->sendPostRequest($sendMessageApi, [
+            'mobile' => $phone,
+        ]);
+        if ($result['errcode'] != 0) {
+            return [];
+        }
+        return $result['result'] ?? [];
+    }
+
+    /**
+     * 发送钉钉应用内消息
+     * @param array $data
+     * @return true
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
+     */
+    protected function sendAgentMsg(array $data)
+    {
+        $sendMessageApi = $this->oapiUrl . '/message/corpconversation/asyncsend_v2';
+        $this->sendPostRequest($sendMessageApi, [
+            'agent_id' => $this->agentId,
+            'userid_list' => $data['userIds'],
+            'to_all_user' => false,
+            'msg' => $data['msg']
+        ]);
+        return true;
+    }
+
+    /**
+     * 发送钉钉请求
+     * @param string $url
+     * @param array $data
+     * @return mixed
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
+     */
+    protected function sendPostRequest(string $url, array $data)
+    {
+        $container = \Hyperf\Context\ApplicationContext::getContainer();
+        $logger = $container->get(LoggerFactory::class)->get(static::class);
+
+        $container = \Hyperf\Context\ApplicationContext::getContainer();
+        $clientFactory = $container->get(ClientFactory::class);
+        $client = $clientFactory->create();
+        $res = $client->post($url.'?access_token='.$this->accessToken, [
             'headers' => [
                 'Content-Type' => 'application/json; charset=utf-8',
             ],
-            'json' => ['mobile' => $phone],
+            'json' => $data,
         ]);
-
         $content = $res->getBody()->getContents();
         $response = json_decode($content, true);
-
+        var_dump($response);
         if ($response['errcode'] != 0) {
-            return [];
+            $logger->error('请求钉钉返回结果失败', ['response' => $response, 'params' => ['url' => $url, 'data' => $data]]);
         }
-        return $response['result'] ?? [];
+        return $response;
     }
 }
