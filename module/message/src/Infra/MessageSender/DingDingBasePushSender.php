@@ -45,10 +45,7 @@ abstract class DingDingBasePushSender extends AbstractMessageSender
      */
     protected int $serverId;
 
-    public function __construct(
-        private string $msgUniqid,
-        protected array $msgParams,
-    )
+    protected function beforeExecute() :void
     {
         $this->appKey = $this->msgParams['server']['appKey'] ?? '';
         $this->appSecret = $this->msgParams['server']['appSecret'] ?? '';
@@ -82,16 +79,15 @@ abstract class DingDingBasePushSender extends AbstractMessageSender
      * @param string $text
      * @return array
      */
-    protected function getContent(string $title, string $text)
+    protected function getContent(string $title, string $text): array
     {
-        $dingMsg = [
+        return [
             'msgtype'  => 'markdown',
             'markdown' => [
                 'title' => $title,
                 'text'  => $text,
             ],
         ];
-        return $dingMsg;
     }
 
     /**
@@ -124,7 +120,6 @@ abstract class DingDingBasePushSender extends AbstractMessageSender
             $this->accessToken = $accessTokenResponse->body->accessToken;
             $cache->set($cacheKey, $accessTokenResponse->body->accessToken, $accessTokenResponse->body->expireIn);
         }
-        return;
     }
 
     /**
@@ -149,22 +144,22 @@ abstract class DingDingBasePushSender extends AbstractMessageSender
 
     /**
      * 发送钉钉应用内消息
-     * @param array $data
-     * @return true
+     * @param string $userIds
+     * @param array $msg
+     * @return void
      * @throws \GuzzleHttp\Exception\GuzzleException
      * @throws \Psr\Container\ContainerExceptionInterface
      * @throws \Psr\Container\NotFoundExceptionInterface
      */
-    protected function sendAgentMsg(array $data)
+    protected function sendAgentMsg(string $userIds, array $msg): void
     {
         $sendMessageApi = $this->oapiUrl . '/message/corpconversation/asyncsend_v2';
         $this->sendPostRequest($sendMessageApi, [
             'agent_id' => $this->agentId,
-            'userid_list' => $data['userIds'],
+            'userid_list' => $userIds,
             'to_all_user' => false,
-            'msg' => $data['msg']
+            'msg' => $msg
         ]);
-        return true;
     }
 
     /**
@@ -176,7 +171,7 @@ abstract class DingDingBasePushSender extends AbstractMessageSender
      * @throws \Psr\Container\ContainerExceptionInterface
      * @throws \Psr\Container\NotFoundExceptionInterface
      */
-    protected function sendPostRequest(string $url, array $data)
+    protected function sendPostRequest(string $url, array $data): array
     {
         $container = \Hyperf\Context\ApplicationContext::getContainer();
         $logger = $container->get(LoggerFactory::class)->get(static::class);

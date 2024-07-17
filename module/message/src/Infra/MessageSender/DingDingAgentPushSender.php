@@ -41,10 +41,10 @@ class DingDingAgentPushSender extends DingDingBasePushSender
         }
         $userIds        = $this->getUserIdListByPhone($phones);
 
-        $this->sendAgentMsg([
-            'userIds' => $userIds,
-            'msg' => $sendContent,
-        ]);
+        if(empty($userIds)){
+            throw new Exception(sprintf('手机号对应的userId不存在%s', json_encode($phones)));
+        }
+        $this->sendAgentMsg($userIds, $sendContent);
         return true;
     }
 }

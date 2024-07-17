@@ -138,7 +138,7 @@ CREATE TABLE `message_tpl_server`
 (
     `id`           int(11)   NOT NULL AUTO_INCREMENT,
     `uniqid`       varchar(255)   DEFAULT '' COMMENT '唯一识别符(不可重复)',
-    `type`         smallint(6)    DEFAULT '0' COMMENT '类型 0邮件 1阿里云短信  2App推送  4websocket 8钉钉群',
+    `type`         smallint(6)    DEFAULT '0' COMMENT '类型 0邮件 1阿里云短信  2App推送  4websocket 8钉钉应用消息  16飞书应用消息',
     `name`         varchar(255)   DEFAULT '' COMMENT '名称',
     `description`  varchar(255)   DEFAULT '' COMMENT '描述',
     `dd_webhook`   varchar(255)   DEFAULT '' COMMENT '钉钉推送地址',
