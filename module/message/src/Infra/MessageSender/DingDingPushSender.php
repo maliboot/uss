@@ -22,39 +22,39 @@ use Uss\Message\Infra\MessageSender\Annotation\MessageSender;
 class DingDingPushSender extends AbstractMessageSender
 {
     /**
-     * @var string
+     * @var string 钉钉corPid
      */
-    private string $corPid;
+    protected string $corPid;
 
     /**
-     * @var string
+     * @var string 钉钉agentId
      */
-    private string $agentId;
+    protected string $agentId;
 
     /**
-     * @var string
+     * @var string 钉钉appKey
      */
-    private string $appKey;
+    protected string $appKey;
 
     /**
-     * @var string
+     * @var string 钉钉appSecret
      */
-    private string $appSecret;
+    protected string $appSecret;
 
     /**
-     * @var string
+     * @var string 钉钉token
      */
-    private string $accessToken;
+    protected string $accessToken;
 
     /**
-     * @var int
+     * @var int 消息发送的主体ID
      */
-    private int $serverId;
+    protected int $serverId;
 
     /**
-     * @var string ...
+     * @var string 基础接口地址
      */
-    private string $oapiUrl = 'https://oapi.dingtalk.com/topapi';
+    protected string $oapiUrl = 'https://oapi.dingtalk.com/topapi';
 
     /**
      * 钉钉推送
@@ -107,13 +107,12 @@ class DingDingPushSender extends AbstractMessageSender
             $content = $res->getBody()->getContents();
             $response = json_decode($content, true);
             if ($response['errcode'] != 0) {
-                $logger->error('发送钉钉通知失败', ['response' => $response]);
+                $logger->error('发送钉钉通知失败', ['response' => $response, 'params' => $this->msgParams]);
             }
             return true;
         }catch (\Exception $exception){
             throw new Exception(sprintf('发送钉钉通知异常:[%s], RAW:[%s]', $exception?->getMessage(), $exception->getTraceAsString()));
         }
-        return true;
     }
 
     /**
@@ -122,7 +121,7 @@ class DingDingPushSender extends AbstractMessageSender
      * @param array $phones 手机号
      * @return string 成功返回userId，失败返回''
      */
-    public function getUserIdListByPhone(array $phones): string
+    protected function getUserIdListByPhone(array $phones): string
     {
         return array_reduce($phones, function ($carry, $item) {
             $userInfo = $this->getUserByPhone($item);
@@ -189,7 +188,7 @@ class DingDingPushSender extends AbstractMessageSender
      *
      * @return array ...
      */
-    public function getUserByPhone(string $phone): array
+    protected function getUserByPhone(string $phone): array
     {
         $sendMessageApi = $this->oapiUrl . '/v2/user/getbymobile?access_token=' . $this->accessToken;
 
