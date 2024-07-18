@@ -40,8 +40,8 @@ class MessageTplServer
     #[Field(name: 'ddSecret', type: 'string', desc: '钉钉密钥')]
     private string $ddSecret;
 
-    #[Field(name: 'ddCorPid', type: 'string', desc: '钉钉cor_pid')]
-    private string $ddCorPid;
+    #[Field(name: 'ddCorpId', type: 'string', desc: '钉钉corp_id')]
+    private string $ddCorpId;
 
     #[Field(name: 'ddAgentId', type: 'string', desc: '钉钉agent_id')]
     private string $ddAgentId;
