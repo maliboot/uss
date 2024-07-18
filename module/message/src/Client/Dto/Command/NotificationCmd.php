@@ -62,6 +62,9 @@ class NotificationCmd
     #[Field(name: 'dingDingTo', type: 'string', desc: '钉钉推送-接收人手机号。一般情况为1个。群发时为多个。JSON串，选填')]
     private string $dingDingTo = '';
 
+    #[Field(name: 'feiShuTo', type: 'string', desc: '飞书推送-接收人手机号。一般情况为1个。群发时为多个。JSON串，选填')]
+    private string $feiShuTo = '';
+
     #[Field(name: 'postPlanTime', type: 'string', desc: '计划发送时间')]
     private string $postPlanTime = '';
 
@@ -140,7 +143,7 @@ class NotificationCmd
         return $result;
     }
 
-    public function getToList(#[ExpectedValues([0, 1, 2, 4, 8])] int $type): array
+    public function getToList(#[ExpectedValues([0, 1, 2, 4, 8, 16])] int $type): array
     {
         return match ($type) {
             0 => $this->getArrayByJson($this->getMailTo()),
@@ -148,6 +151,7 @@ class NotificationCmd
             2 => $this->getArrayByJson($this->getAppPushTo()),
             4 => $this->getArrayByJson($this->getWebsocketTo()),
             8 => $this->getArrayByJson($this->getDingDingTo()),
+            16 => $this->getArrayByJson($this->getFeiShuTo()),
             default => [],
         };
     }

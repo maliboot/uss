@@ -62,4 +62,25 @@ class NotificationTest extends TestCase
         }
         $this->assertTrue(true);
     }
+
+    public function testFeiShuAgentPush()
+    {
+        try {
+            \Hyperf\Support\make(NotificationCmdExe::class)->execute(NotificationCmd::of([
+                'tplGroupUniqid' => 'tg6696371b010bc',
+                'requestId' => md5((string) time()),
+                'requestSource' => 'testUnit',
+                'feiShuTo' => json_encode(['13131067597']),
+                'title' => 'xxxx',
+                'content' => 'yyyy',
+                'bizExt' => json_encode([
+                    'orderId' => 10702,
+                ]),
+            ]));
+        } catch (Exception $e) {
+            $this->fail($e->getMessage());
+        }
+        $this->assertTrue(true);
+    }
+
 }
