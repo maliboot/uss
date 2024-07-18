@@ -35,6 +35,7 @@ abstract class AbstractMessageSender extends Job
         $result = false;
         $resultMsg = '发送成功';
         try {
+            $this->beforeExecute();
             $result = $this->execute();
         } catch (Exception $e) {
             $resultMsg = $e->getMessage();
@@ -61,4 +62,9 @@ abstract class AbstractMessageSender extends Job
     }
 
     abstract protected function execute(): bool;
+
+    protected function beforeExecute(): void
+    {
+
+    }
 }
