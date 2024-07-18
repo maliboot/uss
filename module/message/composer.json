@@ -36,5 +36,6 @@
     "hyperf": {
       "config": "Uss\\Message\\Plugin"
     }
-  }
+  },
+  "version": "1.0"
 }

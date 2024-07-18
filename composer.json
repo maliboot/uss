@@ -103,7 +103,10 @@
     "repositories": {
         "module": {
             "type": "path",
-            "url": "./module/*"
+            "url": "./module/*",
+            "options": {
+                "symlink": true
+            }
         }
     }
 }
