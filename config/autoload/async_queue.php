@@ -10,7 +10,7 @@ declare(strict_types=1);
 use Hyperf\AsyncQueue\Driver\RedisDriver;
 
 return [
-    'default' => [
+    'message-default' => [
         'driver' => RedisDriver::class,
         'redis' => [
             'pool' => 'default',

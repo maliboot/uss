@@ -24,7 +24,7 @@ class MessageGuzzleCmdRepo implements MessageGuzzleRepo
 
     public function __construct(DriverFactory $driverFactory)
     {
-        $this->driver = $driverFactory->get('default');
+        $this->driver = $driverFactory->get('message-default');
     }
 
     public function send(Message $message, int $delay = 0): bool
