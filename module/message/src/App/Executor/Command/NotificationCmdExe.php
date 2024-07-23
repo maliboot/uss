@@ -71,6 +71,7 @@ class NotificationCmdExe extends AbstractExecutor
             $msg->setUniqid(uniqid('s', true));
             $msg->setTplGroupId($tplGroup->getId());
             $msg->setType($tpl->getType());
+            $msg->setAgentId($notificationCmd->getAgentId());
 
             $msg->setTitle($notificationCmd->getTitle($tpl->getTitle()));
             $requestContent = $notificationCmd->getContent();

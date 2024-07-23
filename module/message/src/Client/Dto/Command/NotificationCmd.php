@@ -23,6 +23,9 @@ class NotificationCmd
     #[Field(name: 'tplGroupUniqid', type: 'string', desc: '模板分组标识')]
     private string $tplGroupUniqid;
 
+    #[Field(name: 'agentId', type: 'int', desc: '应用Id')]
+    private int $agentId = 0;
+
     #[Field(name: 'vars', type: 'string', desc: '模板变量内容')]
     private string $vars = '';
 

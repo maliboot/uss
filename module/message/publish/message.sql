@@ -19,6 +19,7 @@ CREATE TABLE `message`
 (
     `id`                int(11)      NOT NULL AUTO_INCREMENT,
     `uniqid`            varchar(255)      DEFAULT '' COMMENT '唯一识别符(不可重复)',
+    `agent_id`          int(11)           DEFAULT '0' COMMENT '应用Id',
     `tpl_id`            int(11)           DEFAULT '0' COMMENT '模板id',
     `tpl_group_id`      int(11)           DEFAULT '0' COMMENT '模板分组id',
     `type`              tinyint(1)        DEFAULT '0' COMMENT '类型 0邮件 1阿里云短信  2App推送  4websocket 8钉钉应用消息 16飞书应用消息',
@@ -44,6 +45,7 @@ CREATE TABLE `message`
     `biz_type`          varchar(255)      DEFAULT '' COMMENT '扩展字段-业务类型，如验证码类型、订单类型、仓库类型、还款类型、审批类型等…',
     `biz_ext`           json              DEFAULT NULL COMMENT '扩展字段-业务其它内容',
     `biz_callback_url`  varchar(255)      DEFAULT '' COMMENT '扩展字段-业务回调地址。当消息发送完成（成功OR失败）时触发，回调参数为本表所有字段',
+    `biz_callback_response`  json         DEFAULT NULL COMMENT '回调响应内容',
     `created_id`        int(11)           DEFAULT '0' COMMENT '创建人id ',
     `created_name`      varchar(255)      DEFAULT '' COMMENT '创建人名称',
     `updated_id`        int(11)           DEFAULT '0' COMMENT '更新人id  ',
@@ -229,5 +231,22 @@ CREATE TABLE `message_tpl_var_group`
     PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB
     COMMENT ='消息模板 - 变量分组';
+
+-- ----------------------------
+-- Table structure for app_agent
+-- ----------------------------
+DROP TABLE IF EXISTS `app_agent`;
+CREATE TABLE "app_agent" (
+                             `id` int(11) NOT NULL AUTO_INCREMENT,
+                             `no` varchar(255) DEFAULT '' COMMENT '应用编号',
+                             `name` varchar(255)  DEFAULT '' COMMENT '应用名称',
+                             `path` varchar(255) DEFAULT '' COMMENT '应用路径=项目/模块/子模块',
+                             `description` varchar(255)  DEFAULT '' COMMENT '描述',
+                             `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                             `updated_at` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+                             `deleted_at` timestamp NULL DEFAULT NULL COMMENT '删除时间',
+                             PRIMARY KEY ("id") USING BTREE
+) ENGINE=InnoDB
+    COMMENT='应用表';
 
 SET FOREIGN_KEY_CHECKS = 1;

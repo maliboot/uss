@@ -25,6 +25,9 @@ class MessageDO
     #[Column(name: 'uniqid', type: 'string', desc: '唯一识别符（不可重复）')]
     private string $uniqid;
 
+    #[Column(name: 'agent_id', type: 'int', desc: '应用id')]
+    private int $agentId;
+
     #[Column(name: 'tpl_id', type: 'int', desc: '模板id')]
     private int $tplId;
 
@@ -99,6 +102,9 @@ class MessageDO
 
     #[Column(name: 'biz_callback_url', type: 'string', desc: '扩展字段-业务回调地址。当消息发送完成（成功OR失败）时触发，回调参数为本表所有字段')]
     private string $bizCallbackUrl;
+
+    #[Column(name: 'biz_callback_response', type: 'string', desc: '回调响应内容')]
+    private string $bizCallbackResponse;
 
     #[Column(name: 'created_id', type: 'int', desc: '创建人id')]
     private int $createdId;

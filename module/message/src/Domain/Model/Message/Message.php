@@ -28,6 +28,9 @@ class Message
     #[Field(name: 'uniqid', type: 'string', desc: '唯一识别符（不可重复）')]
     private string $uniqid;
 
+    #[Field(name: 'agentId', type: 'int', desc: '应用Id')]
+    private int $agentId;
+
     #[Field(name: 'tplId', type: 'int', desc: '模板id')]
     private int $tplId;
 
@@ -111,6 +114,9 @@ class Message
 
     #[Field(name: 'bizCallbackUrl', type: 'string', desc: '扩展字段-业务回调地址。当消息发送完成（成功OR失败）时触发，回调参数为本表所有字段')]
     private string $bizCallbackUrl;
+
+    #[Field(name: 'bizCallbackResponse', type: 'string', desc: '回调响应内容')]
+    private string $bizCallbackResponse;
 
     #[Field(name: 'createdId', type: 'int', desc: '创建人id')]
     private int $createdId;
