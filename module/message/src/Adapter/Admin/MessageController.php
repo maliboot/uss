@@ -31,6 +31,9 @@ use Uss\Message\Client\Dto\Command\MessageCreateCmd;
 use Uss\Message\Client\Dto\Command\MessageUpdateCmd;
 use Uss\Message\Client\Dto\Query\MessageListByPageQry;
 use Uss\Message\Client\ViewObject\MessageVO;
+use Uss\Message\App\Executor\Command\NotificationCmdExe;
+use Uss\Message\Client\Dto\Command\NotificationCmd;
+use Uss\Message\Client\ViewObject\ResultVO;
 
 /**
  * 消息推送.
@@ -53,6 +56,9 @@ class MessageController extends AbstractController
 
     #[Inject]
     protected MessageGetByIdQryExe $messageGetByIdQryExe;
+
+    #[Inject]
+    protected NotificationCmdExe $notificationCmdExe;
 
     #[ApiMapping(path: '/listByPage', methods: ['GET'], name: 'Message列表')]
     #[ApiRequest(MessageListByPageQry::class)]
@@ -92,5 +98,13 @@ class MessageController extends AbstractController
     public function getById(int $id): MessageVO
     {
         return $this->messageGetByIdQryExe->execute($id);
+    }
+
+    #[ApiMapping(path: '/send', methods: ['POST'], name: '获取单个Message信息')]
+    #[ApiRequest(NotificationCmd::class)]
+    #[ApiSingleResponse(ResultVO::class)]
+    public function send(NotificationCmd $notificationCmd): ResultVO
+    {
+        return $this->notificationCmdExe->execute($notificationCmd);
     }
 }
