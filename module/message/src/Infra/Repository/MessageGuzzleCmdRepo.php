@@ -17,6 +17,7 @@ use Uss\Message\Domain\Model\Message\Message;
 use Uss\Message\Domain\Repository\MessageGuzzleRepo;
 use Uss\Message\Infra\MessageSender\AbstractMessageSender;
 use Uss\Message\Infra\MessageSender\Annotation\MessageSender;
+use Uss\Message\Infra\MessageSender\MailSender;
 
 class MessageGuzzleCmdRepo implements MessageGuzzleRepo
 {

@@ -83,4 +83,26 @@ class NotificationTest extends TestCase
         $this->assertTrue(true);
     }
 
+    public function testMailPush()
+    {
+        try {
+            \Hyperf\Support\make(NotificationCmdExe::class)->execute(NotificationCmd::of([
+                'tplGroupUniqid' => 'tg65449d9876ab3',
+                'requestId' => md5((string) time()),
+                'requestSource' => 'testUnit',
+                'mailTo' => json_encode(['786300257@qq.com']),
+                'title' => '车型对比配置单-汽车出口车型库',
+                'content' => '您与'. date('Y年m月d日') .'下载的车型对比配置单现已准备好，请查收。',
+                'mail_files' => json_encode([
+                    [
+                        'name' => '奥迪A6L.xlsx',
+                        'path' => 'https://emao-media-dev.oss-cn-beijing.aliyuncs.com/taochemao/reportData/995cd892516b5acd80d1dc375918271b.xlsx?Expires=1730193937&OSSAccessKeyId=TMP.3KjQqT5cRV3x2uB8v3Uc71ZnUfjacz6EhXiCsfxfBtWkpiaYF2RKZtf5G5trX3q5bBhaQvcmD4A1FoQww7E1ZYjtJuPcqj&Signature=naysy6PXH9Q94piBJkSjspv1Dqk%3D',
+                    ]
+                ], JSON_UNESCAPED_UNICODE),
+            ]));
+        } catch (Exception $e) {
+            $this->fail($e->getMessage());
+        }
+        $this->assertTrue(true);
+    }
 }
