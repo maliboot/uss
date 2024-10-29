@@ -39,10 +39,19 @@ class MailSender extends AbstractMessageSender
             ->to(...$toList)
             ->subject($title)
             ->html($content);
-        if (! empty($mailFiles)) {
-            foreach ($mailFiles as $mailFile) {
-                $email->attachFromPath($mailFile);
+
+        foreach ($mailFiles as $mailFile) {
+            $path = $mailFile;
+            $name = null;
+
+            if (!empty($mailFile['path'])) {
+                $path = $mailFile['path'];
             }
+
+            if (!empty($mailFile['name'])) {
+                $name = $mailFile['name'];
+            }
+            $email->attachFromPath($path, $name);
         }
         $mailer->send($email);
         return true;
