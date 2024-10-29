@@ -38,8 +38,6 @@ abstract class FeiShuBasePushSender  extends AbstractMessageSender
     {
         $this->appKey = $this->msgParams['server']['appKey'] ?? '';
         $this->appSecret = $this->msgParams['server']['appSecret'] ?? '';
-        $this->corPid = $this->msgParams['server']['ddCorPid'] ?? '';
-        $this->agentId = $this->msgParams['server']['ddAgentId'] ?? '';
         $this->serverId = intval($this->msgParams['server']['id'] ?? 0);
         $this->initTenantAccessToken();
     }

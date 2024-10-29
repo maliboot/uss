@@ -143,7 +143,7 @@ CREATE TABLE `message_tpl_server`
     `description`  varchar(255)   DEFAULT '' COMMENT '描述',
     `dd_webhook`   varchar(255)   DEFAULT '' COMMENT '钉钉推送地址',
     `dd_secret`    varchar(255)   DEFAULT '' COMMENT '钉钉密钥',
-    `dd_cor_pid`   varchar(255)   DEFAULT '' COMMENT '钉钉cor_pid',
+    `dd_corp_id`   varchar(255)   DEFAULT '' COMMENT '钉钉corp_id',
     `dd_agent_id`  varchar(255)   DEFAULT '' COMMENT '钉钉agent_id',
     `mail_dsn`     varchar(255)   DEFAULT '' COMMENT '邮件DSN，格式如smtp://user:pass@smtp.example.com:port',
     `mail_address` varchar(255)   DEFAULT '' COMMENT '邮件地址',

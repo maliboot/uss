@@ -12,9 +12,9 @@ use Exception;
 abstract class DingDingBasePushSender extends AbstractMessageSender
 {
     /**
-     * @var string 钉钉corPid
+     * @var string 钉钉corpId
      */
-    protected string $corPid;
+    protected string $corpId;
 
     /**
      * @var string 钉钉agentId
@@ -50,7 +50,7 @@ abstract class DingDingBasePushSender extends AbstractMessageSender
     {
         $this->appKey = $this->msgParams['server']['appKey'] ?? '';
         $this->appSecret = $this->msgParams['server']['appSecret'] ?? '';
-        $this->corPid = $this->msgParams['server']['ddCorPid'] ?? '';
+        $this->corpId = $this->msgParams['server']['ddCorpId'] ?? '';
         $this->agentId = $this->msgParams['server']['ddAgentId'] ?? '';
         $this->serverId = intval($this->msgParams['server']['id'] ?? 0);
         $this->initAccessToken();
